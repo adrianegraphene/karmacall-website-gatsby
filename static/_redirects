@@ -1,0 +1,61 @@
+# general redirects
+/the-platform  /use-cases  301
+/usecase-marketing  /marketing-use-cases  301
+/usecase-sales  /sales-use-cases  301
+/usecase-understanding-customers  /understanding-customers-use-cases  301
+/karmacallwhitepaper  /white-paper-original-scam-calls  301
+/KarmaCallWhitePaper.pdf  /white-paper-original-scam-calls  301
+/the-dream  /white-paper-original-scam-calls  301
+/about-the-fyncom-team  /about  301
+/chat-with-us  /contact  301
+
+# Desired URLs for user help center, but using the below as a temporary workaround
+/crowdin-rewards-for-translations-user-setup  /user-help-center/crowdin-rewards-for-translations-user-setup  301
+/crowdin-rewards-for-user-translations-setup  /user-help-center/crowdin-rewards-for-translations-user-setup  301
+/email-filters-and-rewards  /user-help-center/email-filters-and-rewards  301
+
+# Desired URLs for help center, but using the below as a temporary workaround
+/account-balance-help  /help-center/account-balance-help  301
+/add-fyncom-rewards-to-sendgrid-marketing-email  /help-center/add-fyncom-rewards-to-sendgrid-marketing-email  301
+/email-forwarding-setup-for-instant-rewards-delivery  /help-center/email-forwarding-setup-for-instant-rewards-delivery  301
+/rewards-for-emails-text-and-more  /help-center/rewards-for-emails-text-and-more  301
+/sendgrid-drafts-preparation  /help-center/sendgrid-drafts-preparation  301
+/sendgrid-integration-api-key  /help-center/sendgrid-integration-api-key  301
+/simple-email-rewards-setup  /help-center/simple-email-rewards-setup  301
+/zapier-rewards  /help-center/zapier-rewards  301
+
+# blog redirects
+/how-to-win-in-the-attention-economy /blog/attention-economy-insights	301
+/post/how-to-win-in-the-attention-economy /blog/attention-economy-insights	301
+/how-businesses-can-incentivize-customers-to-actually-take-surveys /blog/customer-survey-incentives	301
+/post/how-businesses-can-incentivize-customers-to-actually-take-surveys /blog/customer-survey-incentives	301
+/the-response-economy /blog/response-economy-strategies	301
+/post/the-response-economy /blog/response-economy-strategies	301
+/mining-for-response-vs /blog/response-rate-improvement	301
+/post/mining-for-response-vs /blog/response-rate-improvement	301
+/how-to-track-marketing-roi-with-gifting /blog/marketing-roi-gifting	301
+/post/how-to-track-marketing-roi-with-gifting /blog/marketing-roi-gifting	301
+/how-to-ensure-customer-retention-using-tech-tools /blog/customer-retention-tech	301
+/post/how-to-ensure-customer-retention-using-tech-tools /blog/customer-retention-tech	301
+/zero-party-data /blog/zero-party-data-guide	301
+/post/zero-party-data /blog/zero-party-data-guide	301
+/damn-it-feels-good-to-be-a-response-getta /blog/response-generation	301
+/post/damn-it-feels-good-to-be-a-response-getta /blog/response-generation	301
+/use-case-how-nano-foundation-uses-fyncom-to-increase-engagement-with-a-wider-audience /blog/effective-use-cases	301
+/post/use-case-how-nano-foundation-uses-fyncom-to-increase-engagement-with-a-wider-audience /blog/effective-use-cases	301
+/how-to-increase-email-response-rates /blog/boost-email-responses	301
+/post/how-to-increase-email-response-rates /blog/boost-email-responses	301
+/email-scams-or-cash-in-your-pocket /blog/avoid-email-scams	301
+/post/email-scams-or-cash-in-your-pocket /blog/avoid-email-scams	301
+/rewards-gamification /blog/gamify-rewards-program	301
+/post/rewards-gamification /blog/gamify-rewards-program	301
+/tips-for-designing-and-implementing-effective-interactive-rewards-program /blog/interactive-rewards-tips	301
+/post/tips-for-designing-and-implementing-effective-interactive-rewards-program /blog/interactive-rewards-tips	301
+/how-data-and-analytics-can-optimize-incentive-rewards-programs /blog/optimize-rewards-analytics	301
+/post/how-data-and-analytics-can-optimize-incentive-rewards-programs /blog/optimize-rewards-analytics	301
+/the-future-of-interactive-rewards-and-how-technology-is-changing-the-game /blog/future-rewards-technology	301
+/post/the-future-of-interactive-rewards-and-how-technology-is-changing-the-game /blog/future-rewards-technology	301
+/blog/categories/activation-campaigns	/blog	301
+/blog/categories/attention-economy	/blog	301
+/blog/categories/lead-nurturing	/blog	301
+/blog/categories/market-research	/blog	301

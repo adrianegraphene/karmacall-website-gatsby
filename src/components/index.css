@@ -1,0 +1,148 @@
+.AppText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box; /* This ensures padding is included in the height calculation */
+}
+.why-fyncom {
+  display: grid;
+  justify-content: center;
+}
+.why-fyncom h2,
+.why-fyncom p {
+  text-align: center;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  flex: 1; /* Takes equal space as the text-block */
+}
+
+.top-logos {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.top-logos-left {
+  display: flex;
+}
+.bottom-logo {
+  display: flex;
+  justify-content: center;
+}
+.gatsby-image-wrapper:hover {
+  transform: scale(1.15);
+  transition: transform 0.3s;
+}
+.bottom-logo > .index-story-video {
+  filter: var(--img-brightness);
+  max-width: 70%;
+}
+
+.text-block {
+  margin-left: 1rem;
+  flex: 1; /* Takes equal space as the logo-container */
+  max-width: 600px; /* Adjust as needed */
+}
+.text-block-left {
+  margin-right: 1rem;
+  flex: 1; /* Takes equal space as the logo-container */
+  max-width: 600px; /* Adjust as needed */
+}
+
+/* social media css*/
+.social-media-container {
+  margin: auto;
+  display: flex;
+  align-items: center; /* Vertically centers children */
+  justify-content: center; /* Horizontally centers children */
+  width: 100%; /* Use the full width of the App container */
+  max-width: 1200px;
+  padding: 0.2rem;
+  max-height: 600px;
+}
+.content-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%; /* Use the full width of the App container */
+  max-width: 1200px; /* Adjust as needed */
+}
+
+/* bits and pieces*/
+.AppText .span,
+.AppText .span a,
+.text-wrapper-3-red {
+  color: var(--fyncom-red);
+  padding: 0;
+}
+.underline {
+  text-decoration: underline;
+}
+.text-wrapper-2 {
+  color: var(--fyncom-blue);
+  margin-bottom: 1rem;
+  font-size: 36px;
+}
+
+.index-links {
+  display: inline-flex; /* or 'inline-block' depending on your layout needs */
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  padding: 0; /* Reset padding */
+  border: none; /* Reset border */
+  margin: 0; /* Reset margin */
+  max-width: fit-content; /* Use 'fit-content' to shrink-wrap the content */
+}
+.gatsby-image-wrapper {
+  max-width: 100%; /* Ensure it doesn't stretch beyond its container */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Make sure it behaves like a block-level element */
+}
+
+@media (max-width: 768px) {
+  .AppText {
+    padding: 1rem;
+    flex-direction: column; /* Stack the child elements vertically */
+  }
+  .social-media-container.communities {
+    flex-direction: column-reverse;
+  }
+  .top-logos.communities {
+    flex-direction: row; /* Arrange the logos horizontally */
+    justify-content: center;
+  }
+  /*.bottom-logo.community {*/
+  /*    flex-direction: row; !* Arrange the logos horizontally *!*/
+  /*    justify-content: center;*/
+  /*}*/
+  .social-media-container,
+  .text-block,
+  .text-block-left,
+  .logo-container,
+  .bottom-logo {
+    flex-direction: column;
+    align-items: center; /* Center align items for mobile */
+    text-align: center; /* Center the text for mobile */
+    max-width: 100%; /* Override any max-width set for larger screens */
+  }
+  .logo-container,
+  .bottom-logo {
+    width: 100%; /* Take the full width of the container on small screens */
+    justify-content: space-evenly; /* Evenly space logos horizontally on small screens */
+    gap: 0;
+  }
+  .text-block,
+  .text-block-left {
+    margin: 1rem 0; /* Add some top and bottom margin for spacing */
+    padding: 0 1rem; /* Add padding to ensure text doesn't touch the edges */
+  }
+  .AppText .span {
+    text-align: center;
+  }
+}
