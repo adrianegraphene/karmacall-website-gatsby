@@ -4,8 +4,6 @@ import Footer from "../components/footer"
 import { graphql, Link, useStaticQuery } from "gatsby"
 import { FaRobot, FaDollarSign, FaBan, FaPiggyBank, FaUserShield } from "react-icons/fa"
 import "../components/index.css"
-import fyncomWebm from "../images/fyncom-GIF-expanding-logo-cropped.webm"
-import fyncomMp4 from "../images/fyncom-GIF-expanding-logo-cropped.mp4"
 import Seo from "../components/seo"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
@@ -15,6 +13,16 @@ const BlockSpamEarnCash = () => {
       fyncomFilterGmail: file(
         relativePath: { eq: "fyncom_filters_gmail_edition_no_logo.png" }
       ) {
+        childImageSharp {
+          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
+        }
+      }
+      appStoreBadge: file(relativePath: { eq: "apple-en.png" }) {
+        childImageSharp {
+          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
+        }
+      }
+      googlePlayBadge: file(relativePath: { eq: "google-play-en.png" }) {
         childImageSharp {
           gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
         }
@@ -117,6 +125,8 @@ const BlockSpamEarnCash = () => {
   const oneMillionCupsDark = getImage(data.oneMillionCupsDark.childImageSharp.gatsbyImageData)
   const disruptionBanking = getImage(data.disruptionBanking.childImageSharp.gatsbyImageData)
   const disruptionBankingDark = getImage(data.disruptionBankingDark.childImageSharp.gatsbyImageData)
+  const appStoreBadge = getImage(data.appStoreBadge.childImageSharp.gatsbyImageData)
+  const googlePlayBadge = getImage(data.googlePlayBadge.childImageSharp.gatsbyImageData)
 
 
   // Use state to keep track of the images for the current theme
@@ -166,8 +176,27 @@ const BlockSpamEarnCash = () => {
                 Join us in the fight against malicious phone spammers by downloading KarmaCall today.
               </p>
             </div>
-          {/*  add buttons here*/}
           </div>
+        </div>
+        <div className={"app-store-row"}>
+              <a
+                href="https://play.google.com/store/apps/details?id=com.fyncom.robocash"
+              >
+                <GatsbyImage
+                  className="app-img-index"
+                  image={googlePlayBadge}
+                  alt="Get KarmaCall on Google Play"
+                />
+              </a>
+              <a
+                href="https://apps.apple.com/us/app/karmacall/id1574524278"
+              >
+                <GatsbyImage
+                  className="app-img-index"
+                  image={appStoreBadge}
+                  alt="Download KarmaCall on the App Store"
+                />
+              </a>
         </div>
 
         <div className="AppText">
