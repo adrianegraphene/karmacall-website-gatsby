@@ -6,7 +6,7 @@
  */
 
 import * as React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, Link } from "gatsby"
 
 import Header from "./header"
 import "./layout.css"
@@ -41,7 +41,7 @@ const Layout = ({ children }) => {
         >
           © {new Date().getFullYear()} &middot; Built with
           {` `}
-          <a href="https://www.fyncom.com">FynCom</a>
+          <Link to="/">FynCom</Link>
         </footer>
       </div>
     </>

@@ -5,12 +5,14 @@ require("dotenv").config({
 /** @type {import('gatsby').GatsbyConfig} */
 module.exports = {
   siteMetadata: {
-    title: `Free Scam Call Blocker | Download today | KarmaCall`,
+    // todo: get 2 titles / descriptions based on whether someone is on the spam track or the rewards track.;
+    // block spam calls/emails. My life goal is to make calls, emails, texts, DMs safe & enjoyable again.
+    title: `Anti AI, Pro Human, Anti Spam Cash Back, CRM Rewards, Interactive Marketing | FynCom`,
     description: `Get more conversations by instantly rewarding prospects when they respond to emails or book meetings.
       Break sales funnel bottlenecks with automated rewards. Get FynCom set up in minutes & enhance your tech stack.
       Improve customer experience & max your chances of gaining & retaining customers.`,
     author: `@adrianegraphene`,
-    siteUrl: `https://www.karmcall.com`,
+    siteUrl: `https://www.fyncom.com`,
   },
   plugins: [
     {
@@ -46,7 +48,7 @@ module.exports = {
         // https://css-tricks.com/meta-theme-color-and-trickery/
         // theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/karmacall-favicon.png`, // This path is relative to the root of the site.
+        icon: `src/images/fyncom-icon.png`, // This path is relative to the root of the site.
       },
     },
     {
@@ -70,7 +72,7 @@ module.exports = {
       resolve: "gatsby-plugin-clearbit",
       options: {
         publishableKey: process.env.GATSBY_CLEARBIT_ID,
-        enableOnDevMode: true,
+        enableOnDevMode: true, // if 'false', clearbit will be fired on NODE_ENV=production only
       },
     },
     {
@@ -83,13 +85,14 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `blogs`,
-        path: `${__dirname}/src/pages`,
+        path: `${__dirname}/src/pages`, // change the path according to your file structure
       },
     },
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
+        // If you have remark plugins you want to use, or gatsby-remark-images for handling images, you can add them here
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,

@@ -26,15 +26,16 @@
 }
 .nav-links li a {
   text-decoration: none;
-  color: var(--dropdown-text-color) !important;
+    /*color: rebeccapurple;*/
+  color: var(--color-primary) !important;
   padding: 5px 10px;
   transition: background-color 0.3s;
 }
 .nav-links a:hover {
   text-decoration: underline;
-  background-color: var(
-    --dropdown-container-color
-  ); /* Add a hover effect for better UX */
+  /*background-color: var(*/
+  /*  --dropdown-container-color*/
+  /*); !* Add a hover effect for better UX *!*/
 }
 
 .login-buttons {

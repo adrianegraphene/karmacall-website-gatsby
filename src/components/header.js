@@ -17,28 +17,28 @@ const Header = () => {
     query {
       fyncomLogoLight: file(relativePath: { eq: "karmacall-site/fyncom-product.png" }) {
         childImageSharp {
-          fixed(width: 100) {
+          fixed(width: 150) {
             ...GatsbyImageSharpFixed_withWebp_noBase64
           }
         }
       }
       fyncomLogoDark: file(relativePath: { eq: "karmacall-site/fyncom-product-white.png" }) {
         childImageSharp {
-          fixed(width: 100) {
+          fixed(width: 150) {
             ...GatsbyImageSharpFixed_withWebp_noBase64
           }
         }
       }
       karmacallLogoLight: file(relativePath: { eq: "karmacall-logo-no-tagline.png" }) {
         childImageSharp {
-          fixed(width: 100) {
+          fixed(width: 120) {
             ...GatsbyImageSharpFixed_withWebp_noBase64
           }
         }
       }
       karmacallLogoDark: file(relativePath: { eq: "karmacall-logo-white-no-tagline.png" }) {
         childImageSharp {
-          fixed(width: 100) {
+          fixed(width: 120) {
             ...GatsbyImageSharpFixed_withWebp_noBase64
           }
         }
@@ -107,8 +107,9 @@ const Header = () => {
       <div className="header-container">
         <Link to="/">
           <div className="fyncom-logo-header">
-            <Img fixed={karmacallLogoData} alt="FynCom Logo" />
-          </div>
+            <Img fixed={karmacallLogoData} alt="KarmaCall Logo" />
+            <div className="arrow-container"></div>
+            <Img fixed={logoData} alt="FynCom Logo, which indicates that KarmaCall is built with FynCom tech" />          </div>
         </Link>
         <div
           ref={hamburgerRef}
@@ -128,6 +129,7 @@ const Header = () => {
                 <Link to="/use-cases">Use Cases</Link>
               </span>
               <ul className="mobile-dropdown-content">
+                {/* todo - neeeds work on useful concepts here!*/}
                 <Link to="/marketing-use-cases">Marketing</Link>
                 <Link to="/sales-use-cases">Sales</Link>
                 <Link to="/understanding-customers-use-cases">
