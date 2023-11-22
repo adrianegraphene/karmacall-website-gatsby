@@ -41,6 +41,8 @@
   --fyncom-yellow: #eee539;
   --karmacall-gold: #ff8c00;
   --karmacall-green: #008080;
+    --karmacall-green-variable: var(--karmacall-green);
+
   --robocash-green: #3fa060;
   --sub-color: var(--fyncom-cyan);
   --color-bar: #000;
@@ -81,7 +83,8 @@
 /* Automatically switch to dark mode based on user's system preference */
 @media (prefers-color-scheme: dark) {
   :root {
-    --mobile-menu-text-color: white;
+      --karmacall-green-variable: var(--robocash-green);
+      --mobile-menu-text-color: white;
     --mobile-menu-bg-color: var(--fyncom-darkest-cyan);
     --color-text: #eaeaea;
     --color-link-custom: var(--color-link-custom);
@@ -115,6 +118,7 @@
 
 /* Manually switch to dark mode via class or data attribute */
 :root[data-theme="dark"] {
+    --karmacall-green-variable: var(--robocash-green);
   --mobile-menu-text-color: white;
   --mobile-menu-bg-color: var(--fyncom-darkest-cyan);
   --color-text: #eaeaea;
