@@ -160,12 +160,13 @@ const BlockSpamEarnCash = () => {
             </div>
             <div className="text-block">
               <h1>Get Paid to Block Scam Calls.</h1>
-              <h2>Cash in effortlessly</h2>
-              <p>Imagine being able to hang up on a scam phone call and forcing the caller to pay you for it!
+              <h2>Cash out with no limits</h2>
+              <p>Hang up on scam phone call and take the caller's deposit!
                 Get immediate financial revenge against scammers who waste your time.
                 Join us in the fight against malicious phone spammers by downloading KarmaCall today.
               </p>
             </div>
+          {/*  add buttons here*/}
           </div>
         </div>
 
