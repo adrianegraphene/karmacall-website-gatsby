@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import Header from "../components/header"
 import Footer from "../components/footer"
 import { graphql, Link, useStaticQuery } from "gatsby"
+import { FaRobot, FaDollarSign, FaBan, FaPiggyBank, FaUserShield } from "react-icons/fa"
 import "../components/index.css"
 import fyncomWebm from "../images/fyncom-GIF-expanding-logo-cropped.webm"
 import fyncomMp4 from "../images/fyncom-GIF-expanding-logo-cropped.mp4"
@@ -59,6 +60,41 @@ const BlockSpamEarnCash = () => {
           gatsbyImageData(width: 135, layout: CONSTRAINED, placeholder: BLURRED)
         }
       }
+      heroKarmaCallImage: file(relativePath: { eq: "karmacall-site/calling_phone.svg" }) {
+        publicURL
+      }
+      standingKarmaCallPost: file(relativePath: { eq: "karmacall-site/subscriber_footstool.svg" }) {
+        publicURL
+      }
+      oneMillionCups: file(relativePath: { eq: "karmacall-site/1-million-cups-logo.png" }) {
+        childImageSharp {
+          gatsbyImageData(width: 500, layout: CONSTRAINED, placeholder: BLURRED)
+        }
+      }
+      oneMillionCupsDark: file(relativePath: { eq: "karmacall-site/1-million-cups-white-logo.png" }) {
+        childImageSharp {
+          gatsbyImageData(width: 500, layout: CONSTRAINED, placeholder: BLURRED)
+        }
+      }
+      disruptionBanking: file(relativePath: { eq: "karmacall-site/disruption-banking-logo.png" }) {
+        childImageSharp {
+          gatsbyImageData(width: 500, layout: CONSTRAINED, placeholder: BLURRED)
+        }
+      }
+      disruptionBankingDark: file(relativePath: { eq: "karmacall-site/disruption-banking-logo-white.webp" }) {
+        childImageSharp {
+          gatsbyImageData(width: 500, layout: CONSTRAINED, placeholder: BLURRED)
+        }
+      }
+      evonexus: file(relativePath: { eq: "karmacall-site/evonexus-logo_dark.svg" }) {
+        publicURL
+      }
+      evonexusDark: file(relativePath: { eq: "karmacall-site/evonexus-logo_light.svg" }) {
+        publicURL
+      }
+      subscriber: file(relativePath: { eq: "karmacall-site/subscriber_footstool.svg" }) {
+        publicURL
+      }
     }
   `)
   const filterImage = getImage(
@@ -66,12 +102,6 @@ const BlockSpamEarnCash = () => {
   )
   const filterImageDark = getImage(
     data.fyncomFilterGmailDark.childImageSharp.gatsbyImageData
-  )
-  const karmacallImage = getImage(
-    data.karmaCall.childImageSharp.gatsbyImageData
-  )
-  const karmacallImageDark = getImage(
-    data.karmaCallDark.childImageSharp.gatsbyImageData
   )
   const increaseCustomerResponse = getImage(
     data.increaseResponseRates.childImageSharp.gatsbyImageData
@@ -81,10 +111,20 @@ const BlockSpamEarnCash = () => {
   const telegramLogo = getImage(
     data.telegramLogo.childImageSharp.gatsbyImageData
   )
+  const karmacallImage = getImage(data.karmaCall.childImageSharp.gatsbyImageData)
+  const karmacallImageDark = getImage(data.karmaCallDark.childImageSharp.gatsbyImageData)
+  const oneMillionCups = getImage(data.oneMillionCups.childImageSharp.gatsbyImageData)
+  const oneMillionCupsDark = getImage(data.oneMillionCupsDark.childImageSharp.gatsbyImageData)
+  const disruptionBanking = getImage(data.disruptionBanking.childImageSharp.gatsbyImageData)
+  const disruptionBankingDark = getImage(data.disruptionBankingDark.childImageSharp.gatsbyImageData)
+
 
   // Use state to keep track of the images for the current theme
   const [filterLogo, setFilterLogo] = useState(filterImage)
   const [karmacallLogo, setKarmacallLogo] = useState(karmacallImage)
+  const [disruptionBankingLogo, setDisruptionBankingLogo] = useState(disruptionBanking)
+  const [oneMillionCupsLogo, setOneMillionCupsLogo] = useState(oneMillionCups)
+  const [evonexusLogo, setEvonexusLogo] = useState(data.evonexus.publicURL)
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -93,40 +133,38 @@ const BlockSpamEarnCash = () => {
       const handleChange = e => {
         setFilterLogo(e.matches ? filterImageDark : filterImage)
         setKarmacallLogo(e.matches ? karmacallImageDark : karmacallImage)
+        setDisruptionBankingLogo(e.matches ? disruptionBankingDark : disruptionBanking)
+        setOneMillionCupsLogo(e.matches ? oneMillionCupsDark : oneMillionCups)
+        setEvonexusLogo(e.matches ? data.evonexusDark.publicURL : data.evonexus.publicURL)
       }
       // setIsDarkMode(mediaQuery.matches);
       handleChange(mediaQuery) // Initial check
       mediaQuery.addListener(handleChange)
       return () => mediaQuery.removeListener(handleChange)
     }
-  }, [filterImage, filterImageDark, karmacallImage, karmacallImageDark])
+  }, [karmacallImage, karmacallImageDark, disruptionBanking, disruptionBankingDark,
+    oneMillionCups, oneMillionCupsDark, data.evonexusDark.publicURL, data.evonexus.publicURL])
 
   return (
     <div>
-      <Seo title="FynCom" />
+      <Seo title="KarmaCall" />
       <Header />
       <section>
         <div className="AppText">
           <div className="social-media-container">
             <div className="logo-container">
               <div className="bottom-logo">
-                <video
-                  className="index-story-video"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                >
-                  <source src={fyncomWebm} type="video/webm" />
-                  <source src={fyncomMp4} type="video/mp4" />
-                  Sorry, your browser doesn't support embedded videos.
-                </video>
+                <img src={data.heroKarmaCallImage.publicURL} className={"hero-index-image"}
+                     alt="A simple app that pays you to block scam calls." />
               </div>
             </div>
             <div className="text-block">
-              <h1>Profit from Scam Blocking</h1>
+              <h1>Get Paid to Block Scam Calls.</h1>
               <h2>Cash in effortlessly</h2>
-              <p>Emails, direct messages, calls - we do it all!</p>
+              <p>Imagine being able to hang up on a scam phone call and forcing the caller to pay you for it!
+                Get immediate financial revenge against scammers who waste your time.
+                Join us in the fight against malicious phone spammers by downloading KarmaCall today.
+              </p>
             </div>
           </div>
         </div>

@@ -15,14 +15,28 @@ const Header = () => {
   }
   const data = useStaticQuery(graphql`
     query {
-      fyncomLogoLight: file(relativePath: { eq: "fyncom-logo.png" }) {
+      fyncomLogoLight: file(relativePath: { eq: "karmacall-site/fyncom-product.png" }) {
         childImageSharp {
           fixed(width: 100) {
             ...GatsbyImageSharpFixed_withWebp_noBase64
           }
         }
       }
-      fyncomLogoDark: file(relativePath: { eq: "fyncom-logo-white.png" }) {
+      fyncomLogoDark: file(relativePath: { eq: "karmacall-site/fyncom-product-white.png" }) {
+        childImageSharp {
+          fixed(width: 100) {
+            ...GatsbyImageSharpFixed_withWebp_noBase64
+          }
+        }
+      }
+      karmacallLogoLight: file(relativePath: { eq: "karmacall-logo-no-tagline.png" }) {
+        childImageSharp {
+          fixed(width: 100) {
+            ...GatsbyImageSharpFixed_withWebp_noBase64
+          }
+        }
+      }
+      karmacallLogoDark: file(relativePath: { eq: "karmacall-logo-white-no-tagline.png" }) {
         childImageSharp {
           fixed(width: 100) {
             ...GatsbyImageSharpFixed_withWebp_noBase64
@@ -33,9 +47,9 @@ const Header = () => {
   `)
 
   // State to hold which logo to show
-  const [logoData, setLogoData] = useState(
-    data.fyncomLogoLight.childImageSharp.fixed
-  )
+  const [logoData, setLogoData] = useState(data.fyncomLogoLight.childImageSharp.fixed)
+  const [karmacallLogoData, setKarmacallLogoData] = useState(data.karmacallLogoLight.childImageSharp.fixed)
+
 
   // Effect for setting the logo based on the system color scheme
   useEffect(() => {
@@ -47,6 +61,11 @@ const Header = () => {
             ? data.fyncomLogoDark.childImageSharp.fixed
             : data.fyncomLogoLight.childImageSharp.fixed
         )
+        setKarmacallLogoData(
+          e.matches
+            ? data.karmacallLogoDark.childImageSharp.fixed
+            : data.karmacallLogoLight.childImageSharp.fixed
+        )
       }
       handleChange(mediaQuery) // Initial check
       mediaQuery.addListener(handleChange) // Listen for changes
@@ -55,6 +74,8 @@ const Header = () => {
   }, [
     data.fyncomLogoLight.childImageSharp.fixed,
     data.fyncomLogoDark.childImageSharp.fixed,
+    data.karmacallLogoDark.childImageSharp.fixed,
+    data.karmacallLogoLight.childImageSharp.fixed
   ])
 
   useEffect(() => {
@@ -86,7 +107,7 @@ const Header = () => {
       <div className="header-container">
         <Link to="/">
           <div className="fyncom-logo-header">
-            <Img fixed={logoData} alt="FynCom Logo" />
+            <Img fixed={karmacallLogoData} alt="FynCom Logo" />
           </div>
         </Link>
         <div
