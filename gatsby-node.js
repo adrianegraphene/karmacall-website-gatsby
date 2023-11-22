@@ -45,29 +45,22 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 const helpCenterTemplate = path.resolve("./src/templates/helpCenterTemplate.js");
 exports.createPages = async ({ actions }) => {
   const { createPage } = actions;
-  // Import `helpItems` and `helpItemsUser` from wherever the file is located in your project
   const { helpItems, helpItemsUser } = require("./static/help-items.js");
 
   // Helper function to create pages for help items
   async function createHelpPages(items, basePath) {
     for (const item of items) {
-      // If this item does not require markdown or is the custom page, skip it
       if (!item.url || item.url === "filtering") {
         continue;
       }
       const { topicUrl, url } = item;
-      // Fetch the markdown file content from the raw GitHub URL
-      console.log(`Fetching Markdown content for: ${url}`);
       const content = await axios.get(url)
         .then(res => {
-          console.log(`Successfully fetched content for: ${topicUrl}`);
           return res.data;
         })
         .catch(error => {
-          console.error(`Error fetching content for ${topicUrl}: `, error);
           return ''; // Return an empty string on error to avoid breaking the build.
         });      // Include the markdown content in the `context` so it"s available in the template
-      console.log(`Content for ${topicUrl}: `, content.slice(0, 200)); // Log the first 200 characters
       createPage({
         path: `${basePath}/${topicUrl}`,
         component: helpCenterTemplate,

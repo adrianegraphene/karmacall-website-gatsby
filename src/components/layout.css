@@ -65,14 +65,14 @@
     margin: 40px auto;
     max-width: 300px;
   }
-  .fyncom-logo-header {
-    display: block;
-    margin: 0 10px;
-    max-width: 100px;
-    height: auto;
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
+.fyncom-logo-header {
+    display: flex; /* Aligns children side by side */
+    align-items: center; /* Centers children vertically */
+    justify-content: center; /* Centers children horizontally */
+    position: relative;
+    gap: 10px; /* Adds space between children */
+    margin: 0 auto; /* Centers the logo-header in the parent container */
+}
   --help-item-hover: #f0f8ff;
   --mobile-menu-bg-color: var(--fyncom-blue);
   --mobile-menu-text-color: white;

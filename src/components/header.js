@@ -17,28 +17,28 @@ const Header = () => {
     query {
       fyncomLogoLight: file(relativePath: { eq: "karmacall-site/fyncom-product.png" }) {
         childImageSharp {
-          fixed(width: 100) {
+          fixed(width: 160) {
             ...GatsbyImageSharpFixed_withWebp_noBase64
           }
         }
       }
       fyncomLogoDark: file(relativePath: { eq: "karmacall-site/fyncom-product-white.png" }) {
         childImageSharp {
-          fixed(width: 100) {
+          fixed(width: 160) {
             ...GatsbyImageSharpFixed_withWebp_noBase64
           }
         }
       }
       karmacallLogoLight: file(relativePath: { eq: "karmacall-logo-no-tagline.png" }) {
         childImageSharp {
-          fixed(width: 100) {
+          fixed(width: 110) {
             ...GatsbyImageSharpFixed_withWebp_noBase64
           }
         }
       }
       karmacallLogoDark: file(relativePath: { eq: "karmacall-logo-white-no-tagline.png" }) {
         childImageSharp {
-          fixed(width: 100) {
+          fixed(width: 110) {
             ...GatsbyImageSharpFixed_withWebp_noBase64
           }
         }
@@ -107,7 +107,9 @@ const Header = () => {
       <div className="header-container">
         <Link to="/">
           <div className="fyncom-logo-header">
-            <Img fixed={karmacallLogoData} alt="FynCom Logo" />
+            <Img fixed={karmacallLogoData} alt="KarmaCall Logo" />
+            <div className="arrow-container"></div>
+            <Img className="right-logo" fixed={logoData} alt="FynCom Logo, which indicates that KarmaCall is built with FynCom tech"/>
           </div>
         </Link>
         <div
@@ -128,6 +130,7 @@ const Header = () => {
                 <Link to="/use-cases">Use Cases</Link>
               </span>
               <ul className="mobile-dropdown-content">
+                {/* todo - neeeds work on useful concepts here!*/}
                 <Link to="/marketing-use-cases">Marketing</Link>
                 <Link to="/sales-use-cases">Sales</Link>
                 <Link to="/understanding-customers-use-cases">
@@ -170,6 +173,7 @@ const Header = () => {
               Use Cases
             </Link>
             <div className="dropdown-content">
+              {/* todo - neeeds work on useful concepts here!*/}
               <Link to="/marketing-use-cases">Marketing</Link>
               <Link to="/sales-use-cases">Sales</Link>
               <Link to="/understanding-customers-use-cases">
@@ -204,13 +208,14 @@ const Header = () => {
             </div>
           </li>
         </ul>
-
+        {/*/!* NOTE: Getting rid of these buttons causes the menu to shift all the way to the end - consider margin right*!/*/}
         <div className="login-buttons">
-          <a href="https://dashboard.fyncom.com/">
-            <button className="business">Business Login</button>
-          </a>
+          {/*<a href="https://dashboard.fyncom.com/">*/}
+          {/*  <button className="business">Business Login</button>*/}
+          {/*</a>*/}
+          {/* todo update button to karmacall gold or green*/}
           <a href="https://app.fyncom.com/">
-            <button className="user">User Login</button>
+            <button className="user">Login</button>
           </a>
         </div>
       </div>
