@@ -107,9 +107,9 @@ const Header = () => {
       <div className="header-container">
         <Link to="/">
           <div className="fyncom-logo-header">
-            <Img fixed={karmacallLogoData} alt="KarmaCall Logo" />
+            <Img className="left-header-logo" fixed={karmacallLogoData} alt="KarmaCall Logo" />
             <div className="arrow-container"></div>
-            <Img className="right-logo" fixed={logoData} alt="FynCom Logo, which indicates that KarmaCall is built with FynCom tech"/>
+            <Img className="right-header-logo" fixed={logoData} alt="FynCom Logo, which indicates that KarmaCall is built with FynCom tech"/>
           </div>
         </Link>
         <div

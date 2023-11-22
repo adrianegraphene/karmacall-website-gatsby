@@ -86,7 +86,7 @@ button.user:hover {
   position: absolute;
   background-color: var(--dropdown-container-color) !important;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 /* Style for dropdown links and text color*/
@@ -109,14 +109,13 @@ button.user:hover {
 .mobile-menu {
   display: none;
 }
-.right-logo {
+.right-header-logo {
     margin-left: 20px;
 }
 .arrow-container {
     width: 30px; /* Length of the arrow */
     height: 2px; /* Thickness of the arrow */
     background-color: var(--color-text); /* Color of the arrow */
-    margin: 0 1px; /* Adjust the margin as needed */
     position: absolute; /* Position the arrow absolutely */
     left: 100px; /* Adjust this value to control the overlap */
     z-index: 1; /* Ensure the arrow is above the logo images */
@@ -134,6 +133,18 @@ button.user:hover {
 }
 
 @media (max-width: 768px) {
+    .left-header-logo {
+        /*max-width: 40% !important; !* Smaller size for mobile, adjust as needed *!*/
+        max-width: 90px !important; /* Smaller size for mobile, adjust as needed */
+        height: 50px !important; /* Maintain aspect ratio */
+    }
+    .right-header-logo {
+        margin-left: 2px !important;
+    }
+    .arrow-container {
+        width: 20px; /* Length of the arrow */
+        left: 75px; /* Adjust this value to control the overlap */
+    }
   ul {
     padding: 0;
   }
@@ -150,6 +161,10 @@ button.user:hover {
   a {
     min-width: 44px;
     min-height: 44px;
+  }
+  .user {
+      /*min-height: ;*/
+      max-width: 40px;
   }
   .mobile-menu-icon {
     font-size: 50px;
