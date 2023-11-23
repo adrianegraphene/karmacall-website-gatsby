@@ -76,6 +76,15 @@
   padding: 1rem; /* Optional padding */
 }
 
+.values-container-sub {
+  text-align: center; /* Center the text */
+  max-width: 600px; /* Set a max width for the text block */
+  margin: 0 auto -1rem auto; /* Center the container with automatic horizontal margins */
+}
+.use-cases-sales-marketing-container {
+  margin-top: 0;
+}
+
 /* bits and pieces*/
 .AppText .span,
 .AppText .span a,
@@ -177,10 +186,22 @@
     gap: 50px;
     padding-bottom: 2rem;    
 }
+.use-case h2 {
+  margin-bottom: 0 !important;
+}
+.use-case sub {
+  margin-top: -0.4rem;
+  margin-bottom: 10px;
+  font-weight: 300;
+}
 
 
 /* MEDIA SIZES CSS */
 @media (max-width: 768px) {
+  .use-case sub {
+  margin-top: -0.2rem;
+  margin-bottom: 10px;
+}
 .parent-container {
   margin-bottom: 4rem;
 }

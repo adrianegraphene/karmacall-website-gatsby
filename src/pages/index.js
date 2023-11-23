@@ -87,11 +87,24 @@ const BlockSpamEarnCash = () => {
       evonexusDark: file(relativePath: { eq: "karmacall-site/evonexus-logo_light.svg" }) {
         publicURL
       }
-      subscriber: file(relativePath: { eq: "karmacall-site/subscriber_footstool.svg" }) {
-        publicURL
+      smugLady: file(relativePath: { eq: "karmacall-site/smug-lady-phone.jpg" }) {
+        childImageSharp {
+          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
+        }
+      }
+      harold: file(relativePath: { eq: "karmacall-site/harold-getting-a-call.jpg" }) {
+        childImageSharp {
+          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
+        }
+      }
+      happyLady: file(relativePath: { eq: "karmacall-site/smiling-lady-on-phone.jpg" }) {
+        childImageSharp {
+          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
+        }
       }
     }
   `)
+  // todo fix  harodl
   const filterImage = getImage(data.fyncomFilterGmail.childImageSharp.gatsbyImageData)
   const filterImageDark = getImage(data.fyncomFilterGmailDark.childImageSharp.gatsbyImageData)
   const tinderLogo = getImage(data.tinderLogo.childImageSharp.gatsbyImageData)
@@ -105,6 +118,9 @@ const BlockSpamEarnCash = () => {
   const disruptionBankingDark = getImage(data.disruptionBankingDark.childImageSharp.gatsbyImageData)
   const appStoreBadge = getImage(data.appStoreBadge.childImageSharp.gatsbyImageData)
   const googlePlayBadge = getImage(data.googlePlayBadge.childImageSharp.gatsbyImageData)
+  const smugLady = getImage(data.smugLady.childImageSharp.gatsbyImageData)
+  const harold = getImage(data.harold.childImageSharp.gatsbyImageData)
+  const happyLady = getImage(data.happyLady.childImageSharp.gatsbyImageData)
 
   // Use state to keep track of the images for the current theme
   const [filterLogo, setFilterLogo] = useState(filterImage)
@@ -224,6 +240,42 @@ const BlockSpamEarnCash = () => {
             108667 payments have been made for rejected calls so far. What are you waiting for? Download the app and get paid! See these payments happening in
             real-time.
           </p>
+        </div>
+
+        {/* Features Section Row */}
+        <div>
+          <h2 className="centered">
+            What kind of calls will I get with <span className="semi-barlow-extra-bold">Karma</span>
+            <span className="semi-barlow-extra-light">Call</span>?
+          </h2>
+          <p className="values-container-sub">In addition to getting normal calls from your contacts...</p>
+        </div>
+        <div className="use-cases-sales-marketing-container">
+          <div className="use-case">
+            <GatsbyImage image={smugLady} alt="Increase bookings with rewards before and after a meeting" />
+            <h2>Blocked</h2>
+            <sub className="sub-features">Instant CashBack!</sub>
+            <p>Your phone will not ring. The call is sent to voicemail and we instantly pay you as thanks for fighting scams!</p>
+          </div>
+          <div className="use-case">
+            <GatsbyImage image={harold} alt="Accelerate Deals with customer journey rewards" />
+            <h2>Refundable</h2>
+            <sub className="sub-features">Possible Good Call</sub>
+            <p>The caller made a $0.05 deposit! Answer & stay on for 25 seconds to give them a full refund. Hang up early to keep their deposit.</p>
+          </div>
+          <div className="use-case">
+            <GatsbyImage image={happyLady} alt="Min / max the value you give based on the revenue you generate" />
+            <h2>Cash</h2>
+            <sub className="sub-features">Reverse Pay Phone</sub>
+            <p>This person's willing to continually pay you to stay on the phone, like a reverse pay-phone!</p>
+          </div>
+          {/* todo put this column  */}
+          <div className="use-case">
+            <GatsbyImage image={happyLady} alt="Min / max the value you give based on the revenue you generate" />
+            <h2>Contact</h2>
+            <sub className="sub-features">Regular call from contacts</sub>
+            <p>If the Caller is on your contacts list, your phone rings right away. Contacts are not affected by KarmaCall.</p>
+          </div>
         </div>
 
         <div className="AppText">

@@ -74,7 +74,15 @@
     position: relative;
     gap: 10px; /* Adds space between children */
     margin: 0 auto; /* Centers the logo-header in the parent container */
-}
+  }
+  .semi-barlow-extra-bold {
+    font-family: 'Barlow SemiCondensed', sans-serif;
+    font-weight: 800;
+  }
+  .semi-barlow-extra-light {
+    font-family: 'Barlow SemiCondensed', sans-serif;
+    font-weight: 200;
+  }
   --help-item-hover: #f0f8ff;
   --mobile-menu-bg-color: var(--fyncom-blue);
   --mobile-menu-text-color: white;
@@ -162,11 +170,7 @@
 
 /* Styles for mobile devices phones*/
 @media (max-width: 768px) {
-  h1,
-  h2,
-  h3,
-  p,
-  sub {
+  h1, h2, h3, p, sub {
     text-align: center !important;
   }
   h1 {
@@ -176,6 +180,9 @@
     font-size: x-large !important;
   }
   h3 {
+    font-size: larger !important;
+  }
+  sub {
     font-size: large !important;
   }
   p {
@@ -184,8 +191,7 @@
   .use-case-section {
     flex-direction: column;
   }
-  .use-case-image,
-  .use-case-description {
+  .use-case-image, .use-case-description {
     width: 100%;
     margin: 0 auto;
     text-align: center;
@@ -339,10 +345,7 @@ img {
   border-style: none;
   max-width: 100%;
 }
-code,
-kbd,
-pre,
-samp {
+code, kbd, pre, samp {
   font-family: var(--font-mono);
   font-size: 1em;
   line-height: inherit;
@@ -370,16 +373,7 @@ hr {
 }
 
 /*NOTE: the img here, can sometimes disrupt certain images... but it does more good than bad*/
-hgroup,
-img,
-figure,
-fieldset,
-ul,
-ol,
-dl,
-dd,
-ul,
-ol {
+hgroup, img, figure, fieldset, ul, ol, dl, dd, ul, ol {
   margin-left: var(--space-4);
   list-style-position: outside;
   list-style-image: none;
@@ -397,10 +391,7 @@ pre {
   word-wrap: normal;
   padding: var(--space-4);
 }
-b,
-strong,
-dt,
-th {
+b, strong, dt, th {
   font-weight: bold;
 }
 li {
