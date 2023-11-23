@@ -40,11 +40,6 @@ const BlockSpamEarnCash = () => {
           gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
         }
       }
-      increaseResponseRates: file(relativePath: { eq: "increase-response=rates-across-any platform-and-channel.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
       tinderLogo: file(relativePath: { eq: "logos/tinder-logo.png" }) {
         childImageSharp {
           gatsbyImageData(width: 320, layout: CONSTRAINED, placeholder: BLURRED)
@@ -99,7 +94,6 @@ const BlockSpamEarnCash = () => {
   `)
   const filterImage = getImage(data.fyncomFilterGmail.childImageSharp.gatsbyImageData)
   const filterImageDark = getImage(data.fyncomFilterGmailDark.childImageSharp.gatsbyImageData)
-  const increaseCustomerResponse = getImage(data.increaseResponseRates.childImageSharp.gatsbyImageData)
   const tinderLogo = getImage(data.tinderLogo.childImageSharp.gatsbyImageData)
   const discordLogo = getImage(data.discordLogo.childImageSharp.gatsbyImageData)
   const telegramLogo = getImage(data.telegramLogo.childImageSharp.gatsbyImageData)
@@ -217,19 +211,19 @@ const BlockSpamEarnCash = () => {
                   </div>
                 </div>
               </div>
-              {/**/}
-              <p>
-                108667 payments have been made for rejected calls so far. What are you waiting for? Download the app and get paid! See these payments happening
-                in real-time.{" "}
-              </p>
             </div>
-            <div className="logo-container">
+            <div className="logo-container hero">
               <div className="bottom-logo">
-                <img src={data.standingKarmaCallPost.publicURL} className={"hero-index-image"} alt="A simple app that pays you to block scam calls." />\
-                <GatsbyImage image={increaseCustomerResponse} alt="Increase Customer Engagement" />
+                <img src={data.standingKarmaCallPost.publicURL} className={"hero-index-image"} alt="A simple app that pays you to block scam calls." />
               </div>
             </div>
           </div>
+        </div>
+        <div className="payments-container">
+          <p className="payment-text">
+            108667 payments have been made for rejected calls so far. What are you waiting for? Download the app and get paid! See these payments happening in
+            real-time.
+          </p>
         </div>
 
         <div className="AppText">
