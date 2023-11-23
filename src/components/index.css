@@ -75,11 +75,12 @@
   margin: 1rem auto; /* Center the container with automatic horizontal margins */
   padding: 1rem; /* Optional padding */
 }
-
 .values-container-sub {
-  text-align: center; /* Center the text */
-  max-width: 600px; /* Set a max width for the text block */
-  margin: 0 auto -1rem auto; /* Center the container with automatic horizontal margins */
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto -1rem auto; 
+  font-weight: 400;
+  font-size: larger;
 }
 .use-cases-sales-marketing-container {
   margin-top: 0;
@@ -198,6 +199,10 @@
 
 /* MEDIA SIZES CSS */
 @media (max-width: 768px) {
+.values-container-sub {
+  font-weight: 400;
+  font-size: medium !important;
+}
   .use-case sub {
   margin-top: -0.2rem;
   margin-bottom: 10px;

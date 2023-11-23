@@ -248,7 +248,10 @@ const BlockSpamEarnCash = () => {
             What kind of calls will I get with <span className="semi-barlow-extra-bold">Karma</span>
             <span className="semi-barlow-extra-light">Call</span>?
           </h2>
-          <p className="values-container-sub">In addition to getting normal calls from your contacts...</p>
+          <p className="values-container-sub">
+            In addition to getting normal uninterrupted calls from your contact, you'll get these 3 unique kinds of calls. Starting from most likely to least
+            likely.
+          </p>
         </div>
         <div className="use-cases-sales-marketing-container">
           <div className="use-case">
@@ -268,13 +271,6 @@ const BlockSpamEarnCash = () => {
             <h2>Cash</h2>
             <sub className="sub-features">Reverse Pay Phone</sub>
             <p>This person's willing to continually pay you to stay on the phone, like a reverse pay-phone!</p>
-          </div>
-          {/* todo put this column  */}
-          <div className="use-case">
-            <GatsbyImage image={happyLady} alt="Min / max the value you give based on the revenue you generate" />
-            <h2>Contact</h2>
-            <sub className="sub-features">Regular call from contacts</sub>
-            <p>If the Caller is on your contacts list, your phone rings right away. Contacts are not affected by KarmaCall.</p>
           </div>
         </div>
 
