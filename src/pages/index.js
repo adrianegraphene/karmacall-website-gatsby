@@ -279,24 +279,24 @@ const BlockSpamEarnCash = () => {
           </div>
         </div>
 
-        <div className="AppText">
-          <div className="social-media-container">
-            <div className="text-block-left-video">
-              <h2 className="text-wrapper-5">Explainer Video!</h2>
-              <p> Check out this quick video about our easy to use app. </p>
-            </div>
-            <div className="logo-container video">
-              <iframe
-                className="video"
-                src="https://www.youtube.com/embed/VKuLB0CXzOM"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
+        {/* <div className="AppText"> */}
+        <div className="video-row-container">
+          <div className="video-row-text-content">
+            <h2>Explainer Video!</h2>
+            <p>Check out this quick video about our easy to use app.</p>
+          </div>
+          <div className="video-row-video-container">
+            <iframe
+              className="video-row-video"
+              src="https://www.youtube.com/embed/VKuLB0CXzOM"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
           </div>
         </div>
+        {/* </div> */}
 
         <div className="AppText">
           <div className="social-media-container">

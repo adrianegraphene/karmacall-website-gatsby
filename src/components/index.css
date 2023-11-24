@@ -36,10 +36,6 @@
   transform: scale(1.15);
   transition: transform 0.3s;
 }
-.bottom-logo > .index-story-video {
-  filter: var(--img-brightness);
-  max-width: 70%;
-}
 .text-block {
   margin-left: 1rem;
   flex: 1; /* Takes equal space as the logo-container */
@@ -49,31 +45,6 @@
   margin-right: 1rem;
   flex: 1; /* Takes equal space as the logo-container */
   max-width: 600px; /* Adjust as needed */
-}
-.text-block-left-video {
-  margin-right: 0rem;
-  flex: 1; /* Takes equal space as the logo-container */
-  max-width: 400px; /* Adjust as needed */
-}
-.logo-container.video {
-  /* margin-bottom: 1rem; */
-  max-width: none;
-  flex: 1;
-}
-.video {
-  width: 100%; /* Full width within its container */
-  padding-top: 56.25%; /* Aspect ratio for 16:9 videos */
-  position: relative; /* Positioning context for the absolute positioned iframe */
-  max-width: 860px;
-}
-.social-media-container.video {
-  margin-top: 0;
-}
-/* .use-cases-sales-marketing-container { */
-  /* margin-bottom: 0; */
-/* } */
-.logo-container.video iframe {
-  margin-top: 0;
 }
 
 /* social media css*/
@@ -221,6 +192,35 @@
   font-weight: 300;
 }
 
+.video-row-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 2rem 0 2rem;
+  gap: 20px;
+  max-height: 600px;
+  max-width: 1200px;
+  margin: 20px 0;
+}
+.video-row-text-content {
+  flex: 1;
+  padding: 15px;
+}
+.video-row-video-container {
+  flex: 2;
+  position: relative;
+  padding-bottom: 56.25%; /* Aspect ratio for 16:9 */
+  height: 0;
+  overflow: hidden;
+}
+.video-row-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* MEDIA SIZES CSS */
 @media (max-width: 768px) {
 .values-container-sub {
@@ -234,10 +234,19 @@
 .parent-container {
   margin-bottom: 4rem;
 }
-.AppText {
+.AppText, .video-row-container {
     padding: 0.2rem 0.2rem 0 0.2rem;
     flex-direction: column; /* Stack the child elements vertically */
   }
+    .video-row-video-container {
+    width: 100%; /* Full width on small screens */
+    padding-bottom: 56.25%; /* Maintain aspect ratio */
+  }
+  .video-row-text-content {
+  padding: 15px;
+  padding-bottom: 0;
+  margin-bottom: -0.2rem;
+}
 .text-container p {
   text-align: left !important;
 }
