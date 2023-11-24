@@ -257,6 +257,11 @@ export const useCombinedQuery = () => {
           gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
         }
       }
+      karmaCallDarkFooter: file(relativePath: { eq: "karmacall-logo-white.png" }) {
+        childImageSharp {
+          gatsbyImageData(width: 150, layout: CONSTRAINED, placeholder: BLURRED)
+        }
+      }
       heroKarmaCallImage: file(relativePath: { eq: "karmacall-site/calling_phone.svg" }) {
         publicURL
       }
@@ -314,6 +319,7 @@ export const useCombinedQuery = () => {
     evonexusDark: data.evonexusDark.publicURL,
     karmacallImage: getImage(data.karmaCall.childImageSharp.gatsbyImageData),
     karmacallImageDark: getImage(data.karmaCallDark.childImageSharp.gatsbyImageData),
+    karmaCallDarkFooter: getImage(data.karmaCallDarkFooter.childImageSharp.gatsbyImageData),
     oneMillionCups: getImage(data.oneMillionCups.childImageSharp.gatsbyImageData),
     oneMillionCupsDark: getImage(data.oneMillionCupsDark.childImageSharp.gatsbyImageData),
     disruptionBanking: getImage(data.disruptionBanking.childImageSharp.gatsbyImageData),
