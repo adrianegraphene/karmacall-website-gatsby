@@ -1,146 +1,59 @@
 import React, { useState, useEffect } from "react"
 import Header from "../components/header"
 import Footer from "../components/footer"
-import { graphql, Link, useStaticQuery } from "gatsby"
-import { FaRobot, FaDollarSign, FaBan, FaPiggyBank, FaUserShield } from "react-icons/fa"
+import { Link } from "gatsby"
+import { FaRobot, FaDollarSign, FaUserShield } from "react-icons/fa"
 import "../components/index.css"
 import Seo from "../components/seo"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import { KarmacallAppStoreModal } from "../components/Modal"
+import { useCombinedQuery } from "../components/useCombinedQuery"
 
 const BlockSpamEarnCash = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      fyncomFilterGmail: file(relativePath: { eq: "fyncom_filters_gmail_edition_no_logo.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      appStoreBadge: file(relativePath: { eq: "apple-en.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      googlePlayBadge: file(relativePath: { eq: "google-play-en.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      fyncomFilterGmailDark: file(relativePath: { eq: "fyncom_filters_gmail_edition_no_logo-white.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      karmaCall: file(relativePath: { eq: "karmacall-logo.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      karmaCallDark: file(relativePath: { eq: "karmacall-logo-white.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      heroKarmaCallImage: file(relativePath: { eq: "karmacall-site/calling_phone.svg" }) {
-        publicURL
-      }
-      standingKarmaCallPost: file(relativePath: { eq: "karmacall-site/subscriber_footstool.svg" }) {
-        publicURL
-      }
-      oneMillionCups: file(relativePath: { eq: "karmacall-site/1-million-cups-logo.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 500, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      oneMillionCupsDark: file(relativePath: { eq: "karmacall-site/1-million-cups-white-logo.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 500, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      disruptionBanking: file(relativePath: { eq: "karmacall-site/disruption-banking-logo.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 500, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      disruptionBankingDark: file(relativePath: { eq: "karmacall-site/disruption-banking-logo-white.webp" }) {
-        childImageSharp {
-          gatsbyImageData(width: 500, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      evonexus: file(relativePath: { eq: "karmacall-site/evonexus-logo_dark.svg" }) {
-        publicURL
-      }
-      evonexusDark: file(relativePath: { eq: "karmacall-site/evonexus-logo_light.svg" }) {
-        publicURL
-      }
-      smugLady: file(relativePath: { eq: "karmacall-site/smug-lady-phone.jpg" }) {
-        childImageSharp {
-          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      harold: file(relativePath: { eq: "karmacall-site/harold-getting-a-call.jpg" }) {
-        childImageSharp {
-          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      happyLady: file(relativePath: { eq: "karmacall-site/smiling-lady-on-phone.jpg" }) {
-        childImageSharp {
-          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-    }
-  `)
-  const filterImage = getImage(data.fyncomFilterGmail.childImageSharp.gatsbyImageData)
-  const filterImageDark = getImage(data.fyncomFilterGmailDark.childImageSharp.gatsbyImageData)
-  const karmacallImage = getImage(data.karmaCall.childImageSharp.gatsbyImageData)
-  const karmacallImageDark = getImage(data.karmaCallDark.childImageSharp.gatsbyImageData)
-  const oneMillionCups = getImage(data.oneMillionCups.childImageSharp.gatsbyImageData)
-  const oneMillionCupsDark = getImage(data.oneMillionCupsDark.childImageSharp.gatsbyImageData)
-  const disruptionBanking = getImage(data.disruptionBanking.childImageSharp.gatsbyImageData)
-  const disruptionBankingDark = getImage(data.disruptionBankingDark.childImageSharp.gatsbyImageData)
-  const appStoreBadge = getImage(data.appStoreBadge.childImageSharp.gatsbyImageData)
-  const googlePlayBadge = getImage(data.googlePlayBadge.childImageSharp.gatsbyImageData)
-  const smugLady = getImage(data.smugLady.childImageSharp.gatsbyImageData)
-  const harold = getImage(data.harold.childImageSharp.gatsbyImageData)
-  const happyLady = getImage(data.happyLady.childImageSharp.gatsbyImageData)
+  const {
+    heroKarmaCallImage,
+    standingKarmaCallPost,
+    evonexus,
+    evonexusDark,
+    appStoreBadge,
+    googlePlayBadge,
+    karmacallImage,
+    karmacallImageDark,
+    oneMillionCups,
+    oneMillionCupsDark,
+    disruptionBanking,
+    disruptionBankingDark,
+    smugLady,
+    harold,
+    happyLady,
+  } = useCombinedQuery()
   const [isModalOpen, setModalOpen] = useState(false)
   const toggleModal = () => {
     setModalOpen(!isModalOpen)
   }
 
   // Use state to keep track of the images for the current theme
-  const [filterLogo, setFilterLogo] = useState(filterImage)
   const [karmacallLogo, setKarmacallLogo] = useState(karmacallImage)
   const [disruptionBankingLogo, setDisruptionBankingLogo] = useState(disruptionBanking)
   const [oneMillionCupsLogo, setOneMillionCupsLogo] = useState(oneMillionCups)
-  const [evonexusLogo, setEvonexusLogo] = useState(data.evonexus.publicURL)
+  const [evonexusLogo, setEvonexusLogo] = useState(evonexus)
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
       // const handleChange = () => setIsDarkMode(mediaQuery.matches);
       const handleChange = e => {
-        setFilterLogo(e.matches ? filterImageDark : filterImage)
         setKarmacallLogo(e.matches ? karmacallImageDark : karmacallImage)
         setDisruptionBankingLogo(e.matches ? disruptionBankingDark : disruptionBanking)
         setOneMillionCupsLogo(e.matches ? oneMillionCupsDark : oneMillionCups)
-        setEvonexusLogo(e.matches ? data.evonexusDark.publicURL : data.evonexus.publicURL)
+        setEvonexusLogo(e.matches ? evonexusDark : evonexus)
       }
       // setIsDarkMode(mediaQuery.matches);
       handleChange(mediaQuery) // Initial check
       mediaQuery.addListener(handleChange)
       return () => mediaQuery.removeListener(handleChange)
     }
-  }, [
-    karmacallImage,
-    karmacallImageDark,
-    disruptionBanking,
-    disruptionBankingDark,
-    oneMillionCups,
-    oneMillionCupsDark,
-    data.evonexusDark.publicURL,
-    data.evonexus.publicURL,
-  ])
+  }, [karmacallImage, karmacallImageDark, disruptionBanking, disruptionBankingDark, oneMillionCups, oneMillionCupsDark, evonexusDark, evonexus])
 
   return (
     <div>
@@ -152,7 +65,7 @@ const BlockSpamEarnCash = () => {
             <div className="social-media-container">
               <div className="logo-container">
                 <div className="bottom-logo">
-                  <img src={data.heroKarmaCallImage.publicURL} className={"hero-index-image"} alt="A simple app that pays you to block scam calls." />
+                  <img src={heroKarmaCallImage} className={"hero-index-image"} alt="A simple app that pays you to block scam calls." />
                 </div>
               </div>
               <div className="text-block">
@@ -216,7 +129,7 @@ const BlockSpamEarnCash = () => {
             </div>
             <div className="logo-container hero">
               <div className="bottom-logo">
-                <img src={data.standingKarmaCallPost.publicURL} className={"hero-index-image"} alt="A simple app that pays you to block scam calls." />
+                <img src={standingKarmaCallPost} className={"hero-index-image"} alt="A simple app that pays you to block scam calls." />
               </div>
             </div>
           </div>

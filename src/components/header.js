@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react"
 import "./header.css"
-import { Link, graphql, useStaticQuery } from "gatsby"
+import { Link } from "gatsby"
 import { helpItems } from "../../static/help-items"
 import { FaBars } from "react-icons/fa"
 import Img from "gatsby-image"
+import { useCombinedQuery } from "./useCombinedQuery"
 
 const Header = () => {
   const [isMenuOpen, setMenuOpen] = useState(false)
@@ -13,80 +14,30 @@ const Header = () => {
     event.stopPropagation()
     setMenuOpen(!isMenuOpen)
   }
-  const data = useStaticQuery(graphql`
-    query {
-      fyncomLogoLight: file(relativePath: { eq: "karmacall-site/fyncom-product.png" }) {
-        childImageSharp {
-          fixed(width: 160) {
-            ...GatsbyImageSharpFixed_withWebp_noBase64
-          }
-        }
-      }
-      fyncomLogoDark: file(relativePath: { eq: "karmacall-site/fyncom-product-white.png" }) {
-        childImageSharp {
-          fixed(width: 160) {
-            ...GatsbyImageSharpFixed_withWebp_noBase64
-          }
-        }
-      }
-      karmacallLogoLight: file(relativePath: { eq: "karmacall-logo-no-tagline.png" }) {
-        childImageSharp {
-          fixed(width: 110) {
-            ...GatsbyImageSharpFixed_withWebp_noBase64
-          }
-        }
-      }
-      karmacallLogoDark: file(relativePath: { eq: "karmacall-logo-white-no-tagline.png" }) {
-        childImageSharp {
-          fixed(width: 110) {
-            ...GatsbyImageSharpFixed_withWebp_noBase64
-          }
-        }
-      }
-    }
-  `)
 
+  const { fyncomProductLogoLight, fyncomProductLogoDark, karmacallLogoNoTaglineLight, karmacallLogoNoTaglineDark } = useCombinedQuery()
   // State to hold which logo to show
-  const [logoData, setLogoData] = useState(data.fyncomLogoLight.childImageSharp.fixed)
-  const [karmacallLogoData, setKarmacallLogoData] = useState(data.karmacallLogoLight.childImageSharp.fixed)
-
+  const [logoData, setLogoData] = useState(fyncomProductLogoLight)
+  const [karmacallLogoData, setKarmacallLogoData] = useState(karmacallLogoNoTaglineLight)
 
   // Effect for setting the logo based on the system color scheme
   useEffect(() => {
     if (typeof window !== "undefined") {
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
       const handleChange = e => {
-        setLogoData(
-          e.matches
-            ? data.fyncomLogoDark.childImageSharp.fixed
-            : data.fyncomLogoLight.childImageSharp.fixed
-        )
-        setKarmacallLogoData(
-          e.matches
-            ? data.karmacallLogoDark.childImageSharp.fixed
-            : data.karmacallLogoLight.childImageSharp.fixed
-        )
+        setLogoData(e.matches ? fyncomProductLogoDark : fyncomProductLogoLight)
+        setKarmacallLogoData(e.matches ? karmacallLogoNoTaglineDark : karmacallLogoNoTaglineLight)
       }
       handleChange(mediaQuery) // Initial check
       mediaQuery.addListener(handleChange) // Listen for changes
       return () => mediaQuery.removeListener(handleChange)
     }
-  }, [
-    data.fyncomLogoLight.childImageSharp.fixed,
-    data.fyncomLogoDark.childImageSharp.fixed,
-    data.karmacallLogoDark.childImageSharp.fixed,
-    data.karmacallLogoLight.childImageSharp.fixed
-  ])
+  }, [fyncomProductLogoLight, fyncomProductLogoDark, karmacallLogoNoTaglineDark, karmacallLogoNoTaglineLight])
 
   useEffect(() => {
     const closeMenu = event => {
       // Verify if the menu is open and if the click target is not within the menu
-      if (
-        isMenuOpen &&
-        menuRef.current &&
-        !menuRef.current.contains(event.target) &&
-        !hamburgerRef.current.contains(event.target)
-      ) {
+      if (isMenuOpen && menuRef.current && !menuRef.current.contains(event.target) && !hamburgerRef.current.contains(event.target)) {
         setMenuOpen(false) // Close the mobile menu
       }
     }
@@ -109,21 +60,14 @@ const Header = () => {
           <div className="fyncom-logo-header">
             <Img className="left-header-logo" fixed={karmacallLogoData} alt="KarmaCall Logo" />
             <div className="arrow-container"></div>
-            <Img className="right-header-logo" fixed={logoData} alt="FynCom Logo, which indicates that KarmaCall is built with FynCom tech"/>
+            <Img className="right-header-logo" fixed={logoData} alt="FynCom Logo, which indicates that KarmaCall is built with FynCom tech" />
           </div>
         </Link>
-        <div
-          ref={hamburgerRef}
-          className="mobile-menu-icon"
-          onClick={toggleMenu}
-        >
+        <div ref={hamburgerRef} className="mobile-menu-icon" onClick={toggleMenu}>
           <FaBars />
         </div>
         {/* Mobile Menu Panel */}
-        <nav
-          ref={menuRef}
-          className={isMenuOpen ? "mobile-menu open" : "mobile-menu"}
-        >
+        <nav ref={menuRef} className={isMenuOpen ? "mobile-menu open" : "mobile-menu"}>
           <ul>
             <li className="mobile-menu-item dropdown">
               <span className="mobile-dropbtn">
@@ -133,9 +77,7 @@ const Header = () => {
                 {/* todo - neeeds work on useful concepts here!*/}
                 <Link to="/marketing-use-cases">Marketing</Link>
                 <Link to="/sales-use-cases">Sales</Link>
-                <Link to="/understanding-customers-use-cases">
-                  Understanding Customers
-                </Link>
+                <Link to="/understanding-customers-use-cases">Understanding Customers</Link>
               </ul>
             </li>
             <li className="mobile-menu-item">
@@ -153,12 +95,7 @@ const Header = () => {
               </span>
               <ul className="mobile-dropdown-content">
                 {helpItems.map(item => (
-                  <Link
-                    to={`/help-center/${
-                      item.topicUrl
-                    }?contentUrl=${encodeURIComponent(item.url)}`}
-                    key={item.title}
-                  >
+                  <Link to={`/help-center/${item.topicUrl}?contentUrl=${encodeURIComponent(item.url)}`} key={item.title}>
                     {item.title}
                   </Link>
                 ))}
@@ -176,9 +113,7 @@ const Header = () => {
               {/* todo - neeeds work on useful concepts here!*/}
               <Link to="/marketing-use-cases">Marketing</Link>
               <Link to="/sales-use-cases">Sales</Link>
-              <Link to="/understanding-customers-use-cases">
-                Understanding Customers
-              </Link>
+              <Link to="/understanding-customers-use-cases">Understanding Customers</Link>
             </div>
           </li>
           <li>
@@ -196,12 +131,7 @@ const Header = () => {
             </Link>
             <div className="dropdown-content">
               {helpItems.map(item => (
-                <Link
-                  to={`/help-center/${
-                    item.topicUrl
-                  }?contentUrl=${encodeURIComponent(item.url)}`}
-                  key={item.title}
-                >
+                <Link to={`/help-center/${item.topicUrl}?contentUrl=${encodeURIComponent(item.url)}`} key={item.title}>
                   {item.title}
                 </Link>
               ))}
@@ -210,10 +140,6 @@ const Header = () => {
         </ul>
         {/*/!* NOTE: Getting rid of these buttons causes the menu to shift all the way to the end - consider margin right*!/*/}
         <div className="login-buttons">
-          {/*<a href="https://dashboard.fyncom.com/">*/}
-          {/*  <button className="business">Business Login</button>*/}
-          {/*</a>*/}
-          {/* todo update button to karmacall gold or green*/}
           <a href="https://app.fyncom.com/">
             <button className="user">Login</button>
           </a>

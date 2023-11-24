@@ -1,80 +1,33 @@
 import React from "react"
 import "./footer.css"
-import { graphql, Link, useStaticQuery } from "gatsby"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { Link } from "gatsby"
+import { GatsbyImage } from "gatsby-plugin-image"
 import Img from "gatsby-image"
+import { useCombinedQuery } from "./useCombinedQuery"
 
 const Footer = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      fyncomLogoWhite: file(
-        relativePath: { eq: "fyncom-logo-white-blank.png" }
-      ) {
-        childImageSharp {
-          gatsbyImageData(width: 80, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      linkedInlogo: file(relativePath: { eq: "logos/linkedin-white-96.png" }) {
-        childImageSharp {
-          fixed(width: 24) {
-            ...GatsbyImageSharpFixed_withWebp_noBase64
-          }
-        }
-      }
-      fbLogo: file(relativePath: { eq: "logos/facebook_logo_secondary_white.png" }) {
-        childImageSharp {
-          fixed(width: 24) {
-            ...GatsbyImageSharpFixed_withWebp_noBase64
-          }
-        }
-      }
-      xLogo: file(relativePath: { eq: "logos/x-logo-white.png" }) {
-        childImageSharp {
-          fixed(width: 24) {
-            ...GatsbyImageSharpFixed_withWebp_noBase64
-          }
-        }
-      }
-    }
-  `)
-  const fyncomLogoWhite = getImage(
-    data.fyncomLogoWhite.childImageSharp.gatsbyImageData
-  )
-  const linkedInlogo = data.linkedInlogo.childImageSharp.fixed
-  const fbLogo = data.fbLogo.childImageSharp.fixed
-  const xLogo = data.xLogo.childImageSharp.fixed
-
+  const { fyncomLogoWhite, linkedInlogo, fbLogo, xLogo } = useCombinedQuery()
   return (
     <div>
       <footer>
         <div className="footer-header">
           <a href="https://www.linkedin.com/company/fyncom">
-            <GatsbyImage
-              image={fyncomLogoWhite}
-              alt="FynCom Logo and LinkedIn Profile"
-            />
+            <GatsbyImage image={fyncomLogoWhite} alt="FynCom Logo and LinkedIn Profile" />
           </a>
           <div className="info-container">
             <p>
               <a href="mailto:info@fyncom.com">info@fyncom.com</a>
             </p>
-            <p>
-              We are located in Merced, CA, focused in the USA & operate
-              globally.
-            </p>
+            <p>We are located in Merced, CA, focused in the USA & operate globally.</p>
           </div>
         </div>
-
         <div className="footer-links-container">
           <div className="footer-socials">
             <a href="https://www.linkedin.com/company/fyncom">
               <Img fixed={linkedInlogo} alt="FynCom's Linkedin Page" />
             </a>
             <a href="https://twitter.com/Fyn_Com">
-              <Img
-                fixed={xLogo}
-                alt="FynCom's X (formally known as Twitter) logo"
-              />
+              <Img fixed={xLogo} alt="FynCom's X (formally known as Twitter) logo" />
             </a>
             <a href="https://www.facebook.com/FynCom/">
               <Img fixed={fbLogo} alt="FynCom's Facebook page" />
