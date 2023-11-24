@@ -159,14 +159,14 @@ export const useCombinedQuery = () => {
           gatsbyImageData(width: 375, layout: CONSTRAINED, placeholder: BLURRED)
         }
       }
-      lightLogo: file(relativePath: { eq: "fyncom-logo.png" }) {
+      fyncomLogoLight: file(relativePath: { eq: "fyncom-logo.png" }) {
         childImageSharp {
           fixed(width: 100) {
             ...GatsbyImageSharpFixed_withWebp_noBase64
           }
         }
       }
-      darkLogo: file(relativePath: { eq: "fyncom-logo-white.png" }) {
+      fyncomLogoDark: file(relativePath: { eq: "fyncom-logo-white.png" }) {
         childImageSharp {
           fixed(width: 100) {
             ...GatsbyImageSharpFixed_withWebp_noBase64
@@ -356,8 +356,8 @@ export const useCombinedQuery = () => {
     seamlessIntegrations: getImage(data.seamlessIntegrations.childImageSharp.gatsbyImageData),
     loyalCustomers: getImage(data.loyalCustomers.childImageSharp.gatsbyImageData),
     driveAdoption: getImage(data.driveAdoption.childImageSharp.gatsbyImageData),
-    lightLogo: data.lightLogo.childImageSharp.fixed,
-    darkLogo: data.darkLogo.childImageSharp.fixed,
+    fyncomLogoLight: data.fyncomLogoLight.childImageSharp.fixed,
+    fyncomLogoDark: data.fyncomLogoDark.childImageSharp.fixed,
     phoneCalls: getImage(data.phoneCalls.childImageSharp.gatsbyImageData),
     closingDeals: getImage(data.closingDeals.childImageSharp.gatsbyImageData),
     nanoQrCode: getImage(data.nanoQrCode.childImageSharp.gatsbyImageData),

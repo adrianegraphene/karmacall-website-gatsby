@@ -9,22 +9,22 @@ import Img from "gatsby-image"
 import { useCombinedQuery } from "../components/useCombinedQuery"
 
 const Unicorner = () => {
-  const { fyncomFiltersWords, fyncomFiltersWordsDark, lightLogo, darkLogo } = useCombinedQuery()
+  const { fyncomFiltersWords, fyncomFiltersWordsDark, fyncomLogoLight, fyncomLogoDark } = useCombinedQuery()
   const [filterLogo, setFilterLogo] = useState(fyncomFiltersWords)
-  const [logoData, setLogoData] = useState(lightLogo)
+  const [logoData, setLogoData] = useState(fyncomLogoLight)
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
       const handleChange = e => {
         setFilterLogo(e.matches ? fyncomFiltersWordsDark : fyncomFiltersWords)
-        setLogoData(e.matches ? darkLogo : lightLogo)
+        setLogoData(e.matches ? fyncomLogoDark : fyncomLogoLight)
       }
       handleChange(mediaQuery) // Initial check
       mediaQuery.addListener(handleChange)
       return () => mediaQuery.removeListener(handleChange)
     }
-  }, [fyncomFiltersWords, fyncomFiltersWordsDark, lightLogo, darkLogo])
+  }, [fyncomFiltersWords, fyncomFiltersWordsDark, fyncomLogoLight, fyncomLogoDark])
 
   return (
     <div className="unicorner-container">
