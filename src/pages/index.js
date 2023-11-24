@@ -104,7 +104,6 @@ const BlockSpamEarnCash = () => {
       }
     }
   `)
-  // todo fix  harodl
   const filterImage = getImage(data.fyncomFilterGmail.childImageSharp.gatsbyImageData)
   const filterImageDark = getImage(data.fyncomFilterGmailDark.childImageSharp.gatsbyImageData)
   const tinderLogo = getImage(data.tinderLogo.childImageSharp.gatsbyImageData)
@@ -255,22 +254,47 @@ const BlockSpamEarnCash = () => {
         </div>
         <div className="use-cases-sales-marketing-container">
           <div className="use-case">
-            <GatsbyImage image={smugLady} alt="Increase bookings with rewards before and after a meeting" />
+            <GatsbyImage image={smugLady} alt="The most common kind of KarmaCall interaction. Unknown calls get blocked and you get instant cash-back!" />
             <h2>Blocked</h2>
             <sub className="sub-features">Instant CashBack!</sub>
             <p>Your phone will not ring. The call is sent to voicemail and we instantly pay you as thanks for fighting scams!</p>
           </div>
           <div className="use-case">
-            <GatsbyImage image={harold} alt="Accelerate Deals with customer journey rewards" />
+            <GatsbyImage
+              image={harold}
+              alt="A unique kind of KarmaCall. Like a bank micro-deposit to verify ownership, this caller's deposited 5 cents to your account to verify they're willing to take a chance at losing money in order to talk to you. Give these callers a chance! Or don't - it's totally up to you!"
+            />
             <h2>Refundable</h2>
             <sub className="sub-features">Possible Good Call</sub>
             <p>The caller made a $0.05 deposit! Answer & stay on for 25 seconds to give them a full refund. Hang up early to keep their deposit.</p>
           </div>
           <div className="use-case">
-            <GatsbyImage image={happyLady} alt="Min / max the value you give based on the revenue you generate" />
+            <GatsbyImage
+              image={happyLady}
+              alt="These are commmercial callers who are paying you for every second you're on the phone with them! You'll make more here by staying on the line, than you would by hanging up on them."
+            />
             <h2>Cash</h2>
             <sub className="sub-features">Reverse Pay Phone</sub>
             <p>This person's willing to continually pay you to stay on the phone, like a reverse pay-phone!</p>
+          </div>
+        </div>
+
+        <div className="AppText">
+          <div className="social-media-container">
+            <div className="text-block-left-video">
+              <h2 className="text-wrapper-5">Explainer Video!</h2>
+              <p> Check out this quick video about our easy to use app. </p>
+            </div>
+            <div className="logo-container video">
+              <iframe
+                className="video"
+                src="https://www.youtube.com/embed/VKuLB0CXzOM"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
           </div>
         </div>
 

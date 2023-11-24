@@ -50,6 +50,31 @@
   flex: 1; /* Takes equal space as the logo-container */
   max-width: 600px; /* Adjust as needed */
 }
+.text-block-left-video {
+  margin-right: 0rem;
+  flex: 1; /* Takes equal space as the logo-container */
+  max-width: 400px; /* Adjust as needed */
+}
+.logo-container.video {
+  /* margin-bottom: 1rem; */
+  max-width: none;
+  flex: 1;
+}
+.video {
+  width: 100%; /* Full width within its container */
+  padding-top: 56.25%; /* Aspect ratio for 16:9 videos */
+  position: relative; /* Positioning context for the absolute positioned iframe */
+  max-width: 860px;
+}
+.social-media-container.video {
+  margin-top: 0;
+}
+/* .use-cases-sales-marketing-container { */
+  /* margin-bottom: 0; */
+/* } */
+.logo-container.video iframe {
+  margin-top: 0;
+}
 
 /* social media css*/
 .social-media-container {
@@ -196,7 +221,6 @@
   font-weight: 300;
 }
 
-
 /* MEDIA SIZES CSS */
 @media (max-width: 768px) {
 .values-container-sub {
@@ -237,10 +261,6 @@
     /* margin-bottom: 1rem; */
     max-width: 300px;
   }
-  /* //todo fix this bottom SVg */
-  /* .logo-container.hero img{ */
-    /* max-height: 250px; */
-  /* } */
   .logo-container, .bottom-logo {
     width: 100%; /* Take the full width of the container on small screens */
     justify-content: space-evenly; /* Evenly space logos horizontally on small screens */
