@@ -198,8 +198,8 @@
   justify-content: center;
   padding: 2rem 2rem 0 2rem;
   gap: 20px;
-  max-height: 600px;
-  max-width: 1200px;
+  max-height: calc(56.25% * 100%); /* Adjust based on aspect ratio */
+  /* max-width: 1200px; */
   margin: 20px 0;
 }
 .video-row-text-content {

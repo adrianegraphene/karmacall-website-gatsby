@@ -6,6 +6,7 @@ import { FaRobot, FaDollarSign, FaBan, FaPiggyBank, FaUserShield } from "react-i
 import "../components/index.css"
 import Seo from "../components/seo"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { KarmacallAppStoreModal } from "../components/Modal"
 
 const BlockSpamEarnCash = () => {
   const data = useStaticQuery(graphql`
@@ -38,21 +39,6 @@ const BlockSpamEarnCash = () => {
       karmaCallDark: file(relativePath: { eq: "karmacall-logo-white.png" }) {
         childImageSharp {
           gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      tinderLogo: file(relativePath: { eq: "logos/tinder-logo.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 320, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      discordLogo: file(relativePath: { eq: "logos/Discord-logo.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 300, layout: CONSTRAINED, placeholder: BLURRED)
-        }
-      }
-      telegramLogo: file(relativePath: { eq: "logos/telegram-logo.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 135, layout: CONSTRAINED, placeholder: BLURRED)
         }
       }
       heroKarmaCallImage: file(relativePath: { eq: "karmacall-site/calling_phone.svg" }) {
@@ -106,9 +92,6 @@ const BlockSpamEarnCash = () => {
   `)
   const filterImage = getImage(data.fyncomFilterGmail.childImageSharp.gatsbyImageData)
   const filterImageDark = getImage(data.fyncomFilterGmailDark.childImageSharp.gatsbyImageData)
-  const tinderLogo = getImage(data.tinderLogo.childImageSharp.gatsbyImageData)
-  const discordLogo = getImage(data.discordLogo.childImageSharp.gatsbyImageData)
-  const telegramLogo = getImage(data.telegramLogo.childImageSharp.gatsbyImageData)
   const karmacallImage = getImage(data.karmaCall.childImageSharp.gatsbyImageData)
   const karmacallImageDark = getImage(data.karmaCallDark.childImageSharp.gatsbyImageData)
   const oneMillionCups = getImage(data.oneMillionCups.childImageSharp.gatsbyImageData)
@@ -120,6 +103,10 @@ const BlockSpamEarnCash = () => {
   const smugLady = getImage(data.smugLady.childImageSharp.gatsbyImageData)
   const harold = getImage(data.harold.childImageSharp.gatsbyImageData)
   const happyLady = getImage(data.happyLady.childImageSharp.gatsbyImageData)
+  const [isModalOpen, setModalOpen] = useState(false)
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen)
+  }
 
   // Use state to keep track of the images for the current theme
   const [filterLogo, setFilterLogo] = useState(filterImage)
@@ -178,7 +165,7 @@ const BlockSpamEarnCash = () => {
               </div>
             </div>
           </div>
-          <div className={"app-store-row"}>
+          <div className={"app-store-row"} id="app-store-row">
             <a href="https://play.google.com/store/apps/details?id=com.fyncom.robocash">
               <GatsbyImage className="app-img-index" image={googlePlayBadge} alt="Get KarmaCall on Google Play" />
             </a>
@@ -279,7 +266,6 @@ const BlockSpamEarnCash = () => {
           </div>
         </div>
 
-        {/* <div className="AppText"> */}
         <div className="video-row-container">
           <div className="video-row-text-content">
             <h2>Explainer Video!</h2>
@@ -296,77 +282,18 @@ const BlockSpamEarnCash = () => {
             ></iframe>
           </div>
         </div>
-        {/* </div> */}
-
-        <div className="AppText">
-          <div className="social-media-container">
-            <div className="text-block-left">
-              <h2 className="text-wrapper-5">
-                Are your customers getting <span className="underline-red">phished</span>?
-              </h2>
-              <p>
-                {" "}
-                Stop scams with refundable deposits. Our tech asks unknown senders to risk losing money to your audience before they can reach them. Click the
-                images to learn more.
-              </p>
-            </div>
-            <div className="logo-container">
-              <div className="top-logos-left">
-                <Link to="/fyncom-filters-email-edition" className="index-links">
-                  <GatsbyImage image={filterLogo} alt="block bad emails automatically & get paid." />
-                </Link>
-                <a href="https://www.karmacall.com" className="index-links">
-                  <GatsbyImage image={karmacallLogo} alt="Get paid to block scam calls!" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="AppText">
-          <div className="social-media-container communities">
-            <div className="logo-container">
-              <div className="top-logos communities">
-                <GatsbyImage image={discordLogo} alt="Discord" />
-                <GatsbyImage image={telegramLogo} alt="Telegram" />
-              </div>
-              <div className="bottom-logo community">
-                <GatsbyImage image={tinderLogo} alt="Tinder" />
-              </div>
-            </div>
-            <div className="text-block">
-              <h2 className="text-wrapper-5">
-                Too many <span className="underline-red">abusive DMs</span> in your communities?
-              </h2>
-              <p>
-                {" "}
-                Your community loves making connections, but not with scammers &amp; imposters. Help mods by adding FynCom&#39;s Direct Message tech into your
-                Discord, Telegram, or other chat-based community. Bonus - your users make $$ for every blocked spam DM!{" "}
-                <span className="span">
-                  <a href="mailto:support@fyncom.com?subject=FynCom DMs">Contact us</a>
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
 
         <section className="why-fyncom">
-          <h2 className="text-wrapper-5">Why FynCom?</h2>
+          <h2 className="underline">Be part of the Data Revolution</h2>
+          <sub>Fight back against scammers who steal billions of dollars every year from vulnerable people. </sub>
           <p>
-            Our company is built around refundable deposits as a tool to create trust between unknown parties in digital communications. Protect yourself from
-            unwanted communications & get the power to put a monetary value to your time & data. <br />
-            <Link to="/white-paper-original-scam-calls">Read More</Link>
-          </p>
-        </section>
-
-        <section className="why-fyncom">
-          <h2 className="underline">Give the Gift of Cash-Back for Scam Blocking</h2>
-          <p>
-            Our company is built around refundable deposits as a tool to create trust between unknown parties in digital communications. Protect yourself from
-            unwanted communications & get the power to put a monetary value to your time & data. <br />
-            <a href="https://calendly.com/adrian-fyncom/30min">
-              <button className="learn-more-btn">Sieze The Day!</button>
-            </a>
+            Our mission is to create a privacy focused market that financially rewards all its participants and is strengthened by numbers. Through KarmaCall,
+            data control becomes your commodity which you can sell or keep to yourself. We believe the future of great businesses is in shared prosperity and
+            that requires that you are financially compensated for your data and time. <br />
+            <button className="learn-more-btn" onClick={toggleModal}>
+              Download Today!
+            </button>
+            {isModalOpen && <KarmacallAppStoreModal onClose={toggleModal} />}
           </p>
         </section>
       </section>
