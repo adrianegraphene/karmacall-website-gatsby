@@ -14,10 +14,9 @@ const PrivacyPolicy = () => {
       <Header />
       <div className="AppText">
         <div className="legal-container">
-          <h1>FynCom's Privacy Policy for the KarmaCall mobile apps</h1>
+          <h1>KarmaCall Privacy Policy</h1>
           <p>
             <strong>
-              PRIVACY POLICY
               <br />
               Last updated November 25, 2023
             </strong>
@@ -349,8 +348,6 @@ const PrivacyPolicy = () => {
               You can unsubscribe from our marketing email list at any time by clicking on the unsubscribe link in the emails that we send or by contacting us
               using the details provided below. You will then be removed from the marketing email list – however, we will still need to send you service-related
               emails that are necessary for the administration and use of your account. To otherwise opt-out, you may:
-              <br />
-              <br />    ■  Contact us using the contact information provided. <br />    ■  <a href="mailto:support@karmacall.com">support@karmacall.com</a>
             </p>
           </div>
 
@@ -422,7 +419,8 @@ const PrivacyPolicy = () => {
               </li>
             </ol>
             <p>
-              If you have questions or comments about this policy, you may email us at support@karmacall.com or by post to: <br />
+              If you have questions or comments about this policy, you may email us at <a href="mailto:support@karmacall.com">support@karmacall.com</a> or by
+              post to: <br />
               <br />
               FynCom <br />
               1401 21st ST #6658 <br />
