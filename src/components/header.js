@@ -36,22 +36,16 @@ const Header = () => {
 
   useEffect(() => {
     const closeMenu = event => {
-      // Verify if the menu is open and if the click target is not within the menu
       if (isMenuOpen && menuRef.current && !menuRef.current.contains(event.target) && !hamburgerRef.current.contains(event.target)) {
         setMenuOpen(false) // Close the mobile menu
       }
     }
-    // todo may need this later - just takes the first 1/2 of a full click
-    // document.addEventListener('mousedown', closeMenu); // Attach the event listener to the document
-    // return () => {
-    //   document.removeEventListener('mousedown', closeMenu); // Cleanup the event listener
-    // };
 
     document.addEventListener("click", closeMenu)
     return () => {
       document.removeEventListener("click", closeMenu)
     }
-  }, [isMenuOpen]) // Only re-run the effect if isMenuOpen changes
+  }, [isMenuOpen])
 
   return (
     <header className="header-top">
