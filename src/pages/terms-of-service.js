@@ -42,25 +42,82 @@ const TermsOfService = () => {
             <br />
             <br />
             <br />
-            <b>1. THE APPLICATION</b>
-            <br />
-            <br />
-            KarmaCall (hereinafter: Application) is a piece of software created to block malicious spam calls through a financial filter that pays users to
-            ignore unknown calls. This is customized for Google and Apple mobile devices. It is used to block spam calls while allowing unknown callers to make
-            refundable micro-deposits in order to authenticate themselves to you.
-            <br />
-            <br />
-            Furthermore, it is used to Earn and withdraw <a href="https://nano.org/">Nano cryptocurrency</a> while allowing the option to cash out to gift
-            cards.
-            <br />
-            <br />
-            While the Application follows general privacy policy standards (see our <Link to="/privacy-policy">Privacy Policy</Link>), the Application is not
-            tailored to comply with industry-specific regulations (Health Insurance Portability and Accountability Act (HIPAA), Federal Information Security
-            Management Act (FISMA), etc.), so if your interactions would be subjected to such laws, you may not use this Application. You may not use the
-            Application in a way that would violate the Gramm-Leach-Bliley Act (GLBA).
-            <br />
-            <br />
-            <br />
+            <div className="legal-text-container-table">
+              <strong>TABLE OF CONTENTS</strong>
+              <ol>
+                <li>
+                  <a href="#section-1">THE APPLICATION</a>
+                </li>
+                <li>
+                  <a href="#section-2">SCOPE OF LICENSE</a>
+                </li>
+                <li>
+                  <a href="#section-3">TECHNICAL REQUIREMENTS</a>
+                </li>
+                <li>
+                  <a href="#section-4">MAINTENANCE AND SUPPORT</a>
+                </li>
+                <li>
+                  <a href="#section-5">USE OF DATA</a>
+                </li>
+                <li>
+                  <a href="#section-6">
+                    <b>LIABILITY</b>
+                  </a>
+                </li>
+                <li>
+                  <a href="#section-7">WARRANTY</a>
+                </li>
+                <li>
+                  <a href="#section-8">PRODUCT CLAIMS</a>
+                </li>
+                <li>
+                  <a href="#section-9">LEGAL COMPLIANCE</a>
+                </li>
+                <li>
+                  <a href="#section-10">CONTACT INFORMATION</a>
+                </li>
+                <li>
+                  <a href="#section-11">TERMINATION</a>
+                </li>
+                <li>
+                  <a href="#section-13">THIRD-PARTY TERMS OF AGREEMENTS AND BENEFICIARY</a>
+                </li>
+                <li>
+                  <a href="#section-13">INTELLECTUAL PROPERTY RIGHTS</a>
+                </li>
+                <li>
+                  <a href="#section-14">APPLICABLE LAW</a>
+                </li>
+                <li>
+                  <a href="#section-15">MISCELLANEOUS</a>
+                </li>
+              </ol>
+            </div>
+            <div className="legal-text-container">
+              <ol start="1" id="section-1">
+                <li>
+                  <strong> THE APPLICATION</strong>
+                </li>
+              </ol>
+              <br />
+              KarmaCall (hereinafter: Application) is a piece of software created to block malicious spam calls through a financial filter that pays users to
+              ignore unknown calls. This is customized for Google and Apple mobile devices. It is used to block spam calls while allowing unknown callers to
+              make refundable micro-deposits in order to authenticate themselves to you.
+              <br />
+              <br />
+              Furthermore, it is used to Earn and withdraw <a href="https://nano.org/">Nano cryptocurrency</a> while allowing the option to cash out to gift
+              cards.
+              <br />
+              <br />
+              While the Application follows general privacy policy standards (see our <Link to="/privacy-policy">Privacy Policy</Link>), the Application is not
+              tailored to comply with industry-specific regulations (Health Insurance Portability and Accountability Act (HIPAA), Federal Information Security
+              Management Act (FISMA), etc.), so if your interactions would be subjected to such laws, you may not use this Application. You may not use the
+              Application in a way that would violate the Gramm-Leach-Bliley Act (GLBA).
+              <br />
+              <br />
+              <br />
+            </div>
             <b>2. SCOPE OF LICENSE</b>
             <br />
             <br />
