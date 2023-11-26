@@ -223,7 +223,8 @@ const CountryCodeSelector = ({ value, onChange }) => {
       Country Code:
       <select name="countryCodes" id="countryCodes" value={value} onChange={onChange}>
         {countryCodes.map((country, index) => (
-          <option key={index} data-country-code={country.code} value={country.dialCode}>
+          // <option key={index} data-country-code={country.code} value={country.dialCode}>
+          <option key={index} data-country-code={country.code} value={`${country.code}-${country.dialCode}`}>
             {country.name} ({country.dialCode})
           </option>
         ))}

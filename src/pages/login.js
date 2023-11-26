@@ -12,7 +12,7 @@ const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
   const [sessionId, setSessionId] = useState("")
   const [otp, setOtp] = useState("")
-  // const [countryCodes, setCountryCodes] = useState([])
+  const [countryCodesOption, setCountryCodesOption] = useState([])
   const location = useLocation()
   let url = `${process.env.GATSBY_API_URL}`
   let baseUrl = `${process.env.GATSBY_API_URL_BASE}`
@@ -30,8 +30,7 @@ const Login = () => {
   const handlePhoneSubmit = async event => {
     event.preventDefault()
     try {
-      // capture sessionId here.
-      // todo - unsure what IPCountr
+      console.log("HANDLING SUBMIT: working with numbert %s and code %s selector %s", phoneNumber, countryCode, countryCodesOption)
       const response = await triggerVerification(phoneNumber, countryCode)
       console.log("response is ", response)
       setSessionId(response.sessionId)
@@ -41,13 +40,20 @@ const Login = () => {
     }
   }
 
+  const handleCountryChange = e => {
+    const [code, dialCode] = e.target.value.split("-")
+    console.log("code is %s and dial is %s", code, dialCode)
+    setCountryCode(code)
+    setCountryCodesOption(e.target.value)
+  }
+
   // get session ID
-  const triggerVerification = async (event, phoneNumber, countryCode) => {
-    event.preventDefault()
+  const triggerVerification = async () => {
     try {
-      let triggerUrl = `${url}verification/trigger`
+      console.log("working with numbert %s and code %s", phoneNumber, countryCode)
+      // let triggerUrl = `${baseUrl}verification/trigger`
       return new Promise((resolve, reject) => {
-        fetch(triggerUrl + "/verification/trigger", {
+        fetch(baseUrl + "verification/trigger", {
           method: "POST",
           headers: headers,
           body: JSON.stringify({
@@ -162,19 +168,18 @@ const Login = () => {
   }
 
   return (
-    <div className="Referral">
+    <div className="login">
       <Seo title="Login KarmaCall" description="A simple login page to let you manage your account" />
       <Header />
       <div className="AppText">
         <section>
-          <div id="Phone Number Entry" className="network">
+          <div id="phone-number-entry" className="network">
             <div className="container">
-              <div className="col-md-2"></div>
               <form method="get" id="phoneNumberInput" onSubmit={handlePhoneSubmit}>
                 <div>
                   <p>
                     <label>Country Code:</label>
-                    <CountryCodeSelector value={countryCode} onChange={e => setCountryCode(e.target.value)} />
+                    <CountryCodeSelector value={countryCodesOption} onChange={handleCountryChange} />
                   </p>
                   <p>
                     <input
