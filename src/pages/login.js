@@ -4,6 +4,7 @@ import Footer from "../components/footer"
 import CountryCodeSelector from "../components/country-codes"
 import Seo from "../components/seo"
 import { useLocation } from "@reach/router"
+import { OtpInputModal } from "../components/Modal"
 import { Link } from "gatsby"
 import { navigate } from "gatsby" // or useNavigate from react-router-dom
 
@@ -14,6 +15,11 @@ const Login = () => {
   const [otp, setOtp] = useState("")
   const [countryCodesOption, setCountryCodesOption] = useState([])
   const location = useLocation()
+  const [isOtpModalOpen, setIsOtpModalOpen] = useState(false)
+  const openOtpModal = () => {
+    setIsOtpModalOpen(true)
+  }
+
   let url = `${process.env.GATSBY_API_URL}`
   let baseUrl = `${process.env.GATSBY_API_URL_BASE}`
   let headers = {
@@ -31,108 +37,93 @@ const Login = () => {
     event.preventDefault()
     try {
       console.log("HANDLING SUBMIT: working with numbert %s and code %s selector %s", phoneNumber, countryCode, countryCodesOption)
-      const response = await triggerVerification(phoneNumber, countryCode)
-      console.log("response is ", response)
-      setSessionId(response.sessionId)
-      // prompt user for OTP here, then call verifyConfirm
+      const result = await triggerVerification()
+      if (result.status === 200) {
+        // Call was successful, proceed with the next step
+        console.log("Verification triggered successfully", result.data)
+        setSessionId(result.data.sessionId)
+        openOtpModal()
+        // const otpResponse = await handleOtpSubmit()
+      } else {
+        // Handle error or unsuccessful call
+        console.log("Failed to trigger verification", result.status)
+      }
     } catch (error) {
       console.log(error)
     }
-  }
-
-  const handleCountryChange = e => {
-    const [code, dialCode] = e.target.value.split("-")
-    console.log("code is %s and dial is %s", code, dialCode)
-    setCountryCode(code)
-    setCountryCodesOption(e.target.value)
   }
 
   // get session ID
   const triggerVerification = async () => {
     try {
       console.log("working with numbert %s and code %s", phoneNumber, countryCode)
-      // let triggerUrl = `${baseUrl}verification/trigger`
-      return new Promise((resolve, reject) => {
-        fetch(baseUrl + "verification/trigger", {
-          method: "POST",
-          headers: headers,
-          body: JSON.stringify({
-            countryCode: countryCode,
-            number: phoneNumber,
-          }),
-        })
-          .then(res => {
-            return res.json()
-          })
-          .then(data => {
-            resolve(data) // think of this as the "return" statement
-          })
-          .catch(error => reject("ERROR"))
+      const response = await fetch(baseUrl + "verification/trigger", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({
+          countryCode: countryCode,
+          number: phoneNumber,
+        }),
       })
-      const response = await verifyConfirm(sessionId, otp)
-      console.log("Response Received from verifyConfirm", response)
-      // handle the rest of the process
+      const data = await response.json()
+      return {
+        status: response.status,
+        data: data,
+      }
     } catch (error) {
       console.log(error)
     }
   }
 
-  const handleOtpSubmit = async event => {
-    event.preventDefault()
+  // OTP value gets set in the Modal
+  const handleOtpSubmit = async submittedOtp => {
     try {
-      const response = await verifyConfirm(sessionId, otp)
+      console.log("working OTP %s and SESSION %s", submittedOtp, sessionId)
+      const response = await verifyConfirm(submittedOtp)
       console.log("Response Received from verifyConfirm", response)
-      // handle the rest of the process
+      if (response.status == 200) {
+        console.log("=response succesfuyl; for verification")
+        setIsOtpModalOpen(false)
+        //send user to cash-out page and optinally show a succes modal
+        navigate("/cash-out")
+      } else {
+        console.log("response failure")
+        setIsOtpModalOpen(false)
+      }
     } catch (error) {
+      setIsOtpModalOpen(false)
       console.log(error)
     }
   }
 
-  const verifyConfirm = async (event, sessionId, otp) => {
-    event.preventDefault()
+  const verifyConfirm = async submittedOtp => {
     try {
-      const response = await verifyConfirm(sessionId, otp)
-      console.log("Response Received from verifyConfirm", response)
-      // handle the rest of the process
+      console.log("VERIFyCONFIRM with otp %s and session %s", submittedOtp, sessionId)
+      const verifyResponse = await fetch(baseUrl + "verification/confirm", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({
+          sessionId: sessionId,
+          verificationCode: submittedOtp,
+        }),
+      })
+      const verifyData = await verifyResponse.json()
+      console.log("verifyData is " + verifyData)
+      return {
+        status: verifyResponse.status,
+        data: verifyData,
+      }
     } catch (error) {
       console.log(error)
     }
   }
 
   // Put all your API call functions here, like verify, verifyConfirm, etc.
-
-  //
-
-  const handleSubmit = async event => {
-    event.preventDefault()
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    })
-
-    try {
-      const response = await fetch("YOUR_API_ENDPOINT", {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify({
-          countryCode: countryCode,
-          number: phoneNumber,
-          // Include any other body data required by your API
-        }),
-      })
-
-      const data = await response.json()
-
-      if (data.success) {
-        navigate("/cash-out")
-        // <Link to="cash-out">Cash out</Link>
-      } else {
-        console.error("An error occurred:", data.message)
-      }
-    } catch (error) {
-      console.error("Network error:", error)
-      // Handle network errors or show a message to the user
-    }
+  const handleCountryChange = e => {
+    const [code, dialCode] = e.target.value.split("-")
+    console.log("code is %s and dial is %s", code, dialCode)
+    setCountryCode(code)
+    setCountryCodesOption(e.target.value)
   }
 
   // This function will be used to get the user's country code on load
@@ -203,11 +194,16 @@ const Login = () => {
                   </p>
                 </div>
               </form>
-              <h3>
-                <a href="/login-email">Click here to login with email</a>
-              </h3>
+              {/* <h3> */}
+              {/* <a href="/login-email">Click here to login with email</a> */}
+              {/* </h3> */}
             </div>
           </div>
+          <OtpInputModal
+            isOpen={isOtpModalOpen}
+            onSubmit={handleOtpSubmit} // Define this function to handle OTP submission
+            onClose={() => setIsOtpModalOpen(false)}
+          />
         </section>
       </div>
       <Footer />

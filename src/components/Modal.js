@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import "../components/contact.css"
 import "../components/blocked-email.css"
 import { GatsbyImage } from "gatsby-plugin-image"
@@ -23,6 +23,29 @@ export const KarmacallAppStoreModal = ({ onClose }) => {
             <GatsbyImage className="app-img-index" image={appStoreBadge} alt="Download KarmaCall on the App Store" />
           </a>
         </div>
+      </div>
+    </div>
+  )
+}
+
+export const OtpInputModal = ({ isOpen, onSubmit, onClose }) => {
+  const [otp, setOtp] = useState("")
+  if (!isOpen) return null
+  const handleSubmit = e => {
+    e.preventDefault()
+    onSubmit(otp)
+  }
+  return (
+    <div className="modal">
+      <div className="modal-content">
+        <span className="close" onClick={onClose}>
+          &times;
+        </span>
+        <h2>Enter OTP</h2>
+        <form onSubmit={handleSubmit}>
+          <input type="text" value={otp} onChange={e => setOtp(e.target.value)} maxLength="6" placeholder="6-digit OTP" />
+          <button type="submit">Submit OTP</button>
+        </form>
       </div>
     </div>
   )
