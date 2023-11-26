@@ -134,9 +134,12 @@ const Header = () => {
         </ul>
         {/*/!* NOTE: Getting rid of these buttons causes the menu to shift all the way to the end - consider margin right*!/*/}
         <div className="login-buttons">
-          <a href="https://app.fyncom.com/">
+          <Link to="/login">
             <button className="user">Login</button>
-          </a>
+          </Link>
+          {/* <a href="https://app.fyncom.com/"> */}
+          {/* <button className="user">Login</button> */}
+          {/* </a> */}
         </div>
       </div>
     </header>

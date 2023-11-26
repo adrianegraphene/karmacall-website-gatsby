@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect, useLocation } from "react"
 import Header from "../components/header"
 import Footer from "../components/footer"
 import "../components/sales-and-marketing-use-cases.css"
@@ -20,7 +20,7 @@ const Referral = () => {
     const blockedEmailId = searchParams.get("depositId")
     console.log("deposit ID is %s", blockedEmailId)
     if (blockedEmailId) {
-      getBlockedEmailDetails(blockedEmailId)
+      // getBlockedEmailDetails(blockedEmailId)
     }
   }, [location])
   return (

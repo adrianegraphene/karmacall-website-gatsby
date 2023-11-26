@@ -61,11 +61,13 @@ button.business:hover {
   background-color: #e55055;
 }
 button.user {
-  background-color: #4a90e2;
+  background-color: var(--karmacall-green);
   color: var(--mobile-menu-text-color);
 }
 button.user:hover {
-  background-color: #4180c6;
+  /* background-color: green; */
+    background-color: var(--karmacall-gold);
+
 }
 
 .dropdown {
