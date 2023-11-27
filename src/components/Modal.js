@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import "../components/contact.css"
 import "../components/blocked-email.css"
 import { GatsbyImage } from "gatsby-plugin-image"
-import { FaGift, FaFileAlt, FaSearch, FaSadCry, FaBan, FaBug, FaMoneyBill, FaGifts } from "react-icons/fa"
+import { FaGift, FaFileAlt, FaSearch, FaSadCry, FaBan, FaBug, FaMoneyBill, FaGifts, FaSadTear } from "react-icons/fa"
 import { useCombinedQuery } from "./useCombinedQuery"
 
 export const KarmacallAppStoreModal = ({ onClose }) => {
@@ -83,7 +83,7 @@ export const ServerErrorModal = ({ isOpen, onClose }) => {
   )
 }
 
-export const NanoSendModal = ({ isOpen, onClose }) => {
+export const NanoSentModal = ({ isOpen, nanoExternal, onClose }) => {
   if (!isOpen) return null
   return (
     <div className="modal">
@@ -92,8 +92,27 @@ export const NanoSendModal = ({ isOpen, onClose }) => {
           &times;
         </span>
         <FaMoneyBill size={80} />
-        <h2>Nano Was successfully sent!</h2>
-        <p>Check your nano account</p>
+        <h2>Nano was successfully sent!</h2>
+        <p>Check the external nano account below</p>
+        <p>
+          <a href={`https://www.nanolooker.com/account/${nanoExternal}`}>{nanoExternal}</a>
+        </p>
+      </div>
+    </div>
+  )
+}
+
+export const NanoNotEnoughModal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null
+  return (
+    <div className="modal-failure">
+      <div className="modal-content">
+        <span className="close" onClick={onClose}>
+          &times;
+        </span>
+        <FaSadTear size={80} />
+        <h2>This is more nano than you have</h2>
+        <p>You cannot send more nano than you have in your account balance.</p>
       </div>
     </div>
   )
@@ -115,6 +134,8 @@ export const GiftCardModal = ({ isOpen, onClose }) => {
   )
 }
 
+/** BIZ MODALS FOR ORGANIZATIONAL USE **/ 
+/** BIZ MODALS FOR ORGANIZATIONAL USE **/ 
 export const SuccessModal = ({ isOpen, message, onClose }) => {
   if (!isOpen) return null
   return (

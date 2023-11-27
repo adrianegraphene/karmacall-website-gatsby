@@ -47,7 +47,11 @@ const Login = () => {
       const result = await triggerVerification()
       if (result.status === 200) {
         setSessionId(result.data.sessionId)
+        setPhoneNumber(phoneNumber)
+        setCountryCode(countryCode)
         localStorage.setItem("sessionId", result.data.sessionId)
+        localStorage.setItem("countryCode", countryCode)
+        localStorage.setItem("phoneNumber", phoneNumber)
         openOtpModal()
       } else if (result.banned) {
         return
@@ -59,7 +63,7 @@ const Login = () => {
     }
   }
 
-  // get session ID
+  // get session ID & save number / country on success
   const triggerVerification = async () => {
     try {
       const response = await fetch(baseUrl + "verification/trigger", {
@@ -74,7 +78,7 @@ const Login = () => {
         openBannedModal()
         return {
           status: response.status,
-          banned: true, // Indicate that the user is banned
+          banned: true,
         }
       }
       const data = await response.json()
@@ -94,9 +98,7 @@ const Login = () => {
   // OTP value gets set in the Modal - cannot use states here..
   const handleOtpSubmit = async submittedOtp => {
     try {
-      console.log("working OTP %s and SESSION %s", submittedOtp, sessionId)
       const response = await verifyConfirm(submittedOtp)
-      console.log("Response Received from verifyConfirm", response)
       if (response.status == 200) {
         setIsOtpModalOpen(false)
         localStorage.setItem("otp", response.data.otp)
