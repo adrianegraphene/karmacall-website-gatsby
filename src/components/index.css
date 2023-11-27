@@ -10,6 +10,12 @@
   display: grid;
   justify-content: center;
 }
+.payments-counter {
+  font-size: xx-large;
+  /* text-decoration: underline; */
+  color: var(--karmacall-gold);
+  padding: 0;
+}
 .why-fyncom h2,.why-fyncom p {
   text-align: center;
 }

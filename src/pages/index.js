@@ -32,7 +32,7 @@ const BlockSpamEarnCash = () => {
     setModalOpen(!isModalOpen)
   }
   const [dynamicMessage, setDynamicMessage] = useState(
-    '108667 instant payments have been made for blocked calls so far. What are you waiting for? Download the app and get paid! <a href="https://www.nanolooker.com/account/nano_3rcpayu3g39njpq3mkizuepfr5rh1nwuz4xypwsmubkoiww88wubff8d719t">See these payments happening in real-time!</a>'
+    '<span className="payments-counter">108,777 instant payments</span> have been made for blocked calls so far. What are you waiting for? Download the app and get paid! <a href="https://www.nanolooker.com/account/nano_3rcpayu3g39njpq3mkizuepfr5rh1nwuz4xypwsmubkoiww88wubff8d719t">See these payments happening in real-time!</a>'
   )
   const [nanoBlockCount, setNanoBlockCount] = useState("")
   let baseUrl = `${process.env.GATSBY_API_URL_BASE}`
@@ -78,7 +78,9 @@ const BlockSpamEarnCash = () => {
         const data = await response.json()
         if (data.accountBlockCount > 0) {
           setNanoBlockCount(data.accountBlockCount)
-          const newMessage = `${data.accountBlockCount} instant payments have been made for blocked calls so far. What are you waiting for? Download the app and get paid! <a href="https://www.nanolooker.com/account/nano_3rcpayu3g39njpq3mkizuepfr5rh1nwuz4xypwsmubkoiww88wubff8d719t">See these payments happening in real-time!</a>`
+          const numberWithCommas = data.accountBlockCount.toLocaleString()
+          const newMessage = `<span class="payments-counter">${numberWithCommas} instant payments</span> have been made for blocked calls so far. What are you waiting for? Download the app and get paid! <a href="https://www.nanolooker.com/account/nano_3rcpayu3g39njpq3mkizuepfr5rh1nwuz4xypwsmubkoiww88wubff8d719t">See these payments happening in real-time!</a>`
+
           setDynamicMessage(newMessage)
         }
       }
