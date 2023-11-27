@@ -50,6 +50,55 @@ const CashOut = () => {
     }
   }
 
+  const handleNanoWithdraw = async submittedOtp => {
+    var amountToSend = prompt("How much Nano would you like to withdraw?", "")
+    try {
+      await getUsdValueOfBalance(nanoAccount)
+      const response = await sendNano(amountToSend, accountToSendTo)
+      console.log("sendNano response successful with response ", response)
+      if (!isBlank(response["transactionId"])) {
+        // This call is lazy and wasteful - Should just subtract values if you want to update, rather than making another API call
+        getUsdValueOfBalance(nanoAccount)
+        alert("Nano successfully sent!")
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const sendNano = async (amountToSend, accountToSendTo) => {
+    var myNanoBalance
+    myNanoBalance = localStorage.getItem("nanoBalance")
+    return new Promise((resolve, reject) => {
+      if (amountToSend > myNanoBalance) {
+        insufficientBalance = true
+        // todo setup a Modal for this.
+        alert("This is more Nano than you have in your account")
+        reject(insufficientBalance)
+      }
+      fetch("${url}nano/userSend", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({
+          amount: amountToSend,
+          countryCode: IPcountryCode,
+          destinationAddress: accountToSendTo,
+          sessionId: sessionId,
+          sourceAddress: nanoAccount,
+          userPhoneNumber: phoneNumber,
+        }),
+      })
+        .then(res => {
+          console.log(res)
+          return res.json()
+        })
+        .then(data => {
+          resolve(data)
+        })
+        .catch(error => reject(error))
+    })
+  }
+
   return (
     <div className="cash-out">
       <Seo title="Wallet Page" description="Manage your KarmaCall account here." />
@@ -59,9 +108,7 @@ const CashOut = () => {
           <h1>Cash Out</h1>
           <p>Copy in the nano account where you would like to send your nano to.</p>
           <div className="html-dynamic" dangerouslySetInnerHTML={{ __html: dynamicMessage }}></div>
-          {/* <p id="nanoBalanceText"></p> */}
-          {/* <p id="nanoAccountText"></p> */}
-          <form method="get" id="nanoAccountWithDraw">
+          <form method="get" id="nanoAccountWithDraw" onSubmit={handleNanoWithdraw}>
             <p>Withdraw to external nano account (enter amount after pressing submit) </p>
             <div>
               <p>
@@ -70,7 +117,7 @@ const CashOut = () => {
             </div>
             <button className="learn-more-btn ">Submit</button>
           </form>
-          <form method="post" id="giftCardCashOut">
+          <form method="post" id="giftCardCashOut" onSubmit={handleGiftCardWithdraw}>
             <button className="submit-btn"> Cash Out To Gift Cards </button>
           </form>
         </div>
