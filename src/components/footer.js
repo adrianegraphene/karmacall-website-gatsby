@@ -1,12 +1,17 @@
-import React from "react"
+import React, { useState } from "react"
 import "./footer.css"
 import { Link } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 import Img from "gatsby-image"
+import { KarmacallAppStoreModal } from "../components/Modal"
 import { useCombinedQuery } from "./useCombinedQuery"
 
 const Footer = () => {
   const { karmaCallDarkFooter, linkedInlogo, fbLogo, xLogo } = useCombinedQuery()
+  const [isFooterModalOpen, setFooterModalOpen] = useState(false)
+  const toggleFooterModal = () => {
+    setFooterModalOpen(!isFooterModalOpen)
+  }
   return (
     <div>
       <footer>
@@ -34,21 +39,13 @@ const Footer = () => {
             </a>
           </div>
           <ul className="footer-links left">
-            {/*todo set this up so that only 1 is visble*/}
             <li>
-              <Link to="/use-cases">Product</Link>
+              <Link to="#" onClick={toggleFooterModal}>
+                Download
+              </Link>
             </li>
             <li>
               <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/pricing">Pricing</Link>
-            </li>
-            <li>
-              <Link to="/help-center">Help</Link>
-            </li>
-            <li>
-              <Link to="/blog">Blog</Link>
             </li>
           </ul>
           <ul className="footer-links right">
@@ -59,13 +56,11 @@ const Footer = () => {
               <Link to="/terms-of-service">Terms of Service</Link>
             </li>
             <li>
-              <Link to="/sitemap">Sitemap</Link>
-            </li>
-            <li>
               <Link to="/privacy-policy">Privacy Policy</Link>
             </li>
           </ul>
         </div>
+        {isFooterModalOpen && <KarmacallAppStoreModal onClose={toggleFooterModal} />}
       </footer>
     </div>
   )
