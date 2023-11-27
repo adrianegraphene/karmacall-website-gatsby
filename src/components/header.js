@@ -80,9 +80,9 @@ const Header = () => {
             <li className="mobile-menu-item">
               <Link to="/pricing">Pricing</Link>
             </li>
-            <li className="mobile-menu-item">
-              <Link to="/blog">Blog</Link>
-            </li>
+            {/* <li className="mobile-menu-item"> */}
+            {/* <Link to="/blog">Blog</Link> */}
+            {/* </li> */}
             <li className="mobile-menu-item dropdown">
               <span className="mobile-dropbtn">
                 <Link to="/help-center">Help</Link>
@@ -116,9 +116,10 @@ const Header = () => {
           <li>
             <Link to="/pricing">Pricing</Link>
           </li>
-          <li>
-            <Link to="/blog">Blog</Link>
-          </li>
+          {/* todo setup blog to a KarmaCall section on FynCom */}
+          {/* <li> */}
+          {/* <Link to="/blog">Blog</Link> */}
+          {/* </li> */}
           <li className="dropdown">
             <Link to="/help-center" className="dropbtn">
               Help
