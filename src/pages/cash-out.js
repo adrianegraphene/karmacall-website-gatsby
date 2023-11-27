@@ -9,41 +9,38 @@ const CashOut = () => {
   const [dynamicMessage, setDynamicMessage] = useState("Your USD Balance is $0.00")
   const [userId, setUserId] = useState("")
   const [nanoAccount, setNanoAccount] = useState("")
+  let url = `${process.env.GATSBY_API_URL}`
+  let baseUrl = `${process.env.GATSBY_API_URL_BASE}`
+  let headers = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  }
 
   useEffect(() => {
-    setNanoAccount(localStorage.getItem("nanoAccount"))
-    if (nanoAccount !== null) {
-      console.log("nano account %s", nanoAccount)
-      // this has a nano account in it
-      updateMessage(nanoAccount)
-    } else {
-      console.log("no nano account - redirect user to sign in")
+    const account = localStorage.getItem("nanoAccount")
+    if (account !== null) {
+      updateMessage(account, "USD")
     }
+    setNanoAccount(account)
   }, [])
 
   // need to get this user's nano account
-  const updateMessage = async nanoAccount => {
-    let newUrl = `${process.env.GATSBY_API_URL}nano/user/balance/${nanoAccount}`
+  const updateMessage = async (nanoAccount, fiatType) => {
     try {
-      const response = await fetch(newUrl, {
+      const response = await fetch(`${baseUrl}nano/user/balance/${nanoAccount}/${fiatType}`, {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+        headers: headers,
       })
-      // todo NOTE: This might be an issue due to no AuthId
       if (response.ok) {
         const data = await response.json()
         const accountBalanceInNano = data.accountBalanceInNano
-        const accountBalanceInUSD = data.accountBalanceInUSD
+        const accountBalanceInFiat = data.accountBalanceInFiat
+        const currencyType = data.currencyType
         const nanoUsdRate = data.rate
-        console.log("deposit paid status: " + JSON.stringify(data))
-        const secondaryLabel = data.emailLabel ? data.emailLabel : "FynFiltered"
-        const fynMail = "FynMail"
         setUserDetails(data)
-        const newMessage = `<p>Your USD balance is $(<span class="emphasis">${data.accountBalanceInUSD}</span>) </p>
-             <p>Your nano balance is (<span class="emphasis">${data.accountBalanceInNano}</span>) </p>`
+        // TODO - get the currency type from the country code or user preferences
+        // TODO - setup the Currency denominator to match the currency type
+        const newMessage = `<p>Your USD balance is $<span class="emphasis">${accountBalanceInFiat}</span></p> <p>Your nano balance is Ӿ<span class="emphasis">${accountBalanceInNano}</span></p>`
         setDynamicMessage(newMessage)
       } else {
         throw new Error("Failed to fetch user details")
