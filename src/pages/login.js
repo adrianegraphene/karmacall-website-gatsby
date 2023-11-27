@@ -142,6 +142,7 @@ const Login = () => {
     }
   }
 
+  // TODO - set up the "getUserId" for existing users
   const handleSignUp = async () => {
     try {
       const signUpResponse = await fetch(baseUrl + "user/register", {
@@ -164,15 +165,8 @@ const Login = () => {
         //   localStorage.setItem("nanoAccount", connectedAccount.data.currentDatabaseAccountAddress)
         // }
       } else if (signUpResponse.status == 400) {
-        // existing user
-        console.log("User %s already exists, code 400", signUpData)
-        // const thisUserId = signUpData.userId
-        // const nanoAccount = await getNanoAccount()
-        // const connectedAccount = await connectNanoAccountWithUserId(thisUserId, nanoAccount.nanoNodeWalletAccount)
-        // console.log("response of new nano account connection is ", connectedAccount)
-        // if (connectedAccount.data.message === "Welcome back!") {
-        // localStorage.setItem("nanoAccount", connectedAccount.data.currentDatabaseAccountAddress)
-        // }
+        console.log("User already exists")
+        const signUpData = await getUserId()
       }
       const thisUserId = signUpData.userId
       const nanoAccount = await getNanoAccount()
@@ -186,6 +180,27 @@ const Login = () => {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  // for existing users only
+  const getUserId = async () => {
+    return new Promise((resolve, reject) => {
+      fetch(baseUrl + "user/getUser", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({
+          countryCode: countryCode,
+          number: phoneNumber,
+        }),
+      })
+        .then(res => {
+          return res.json()
+        })
+        .then(data => {
+          resolve(data)
+        })
+        .catch(error => reject(error))
+    })
   }
 
   const getNanoAccount = async () => {
