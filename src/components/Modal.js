@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import "../components/contact.css"
 import "../components/blocked-email.css"
 import { GatsbyImage } from "gatsby-plugin-image"
-import { FaGift, FaFileAlt, FaSearch, FaSadCry } from "react-icons/fa"
+import { FaGift, FaFileAlt, FaSearch, FaSadCry, FaBan, FaBug } from "react-icons/fa"
 import { useCombinedQuery } from "./useCombinedQuery"
 
 export const KarmacallAppStoreModal = ({ onClose }) => {
@@ -46,6 +46,38 @@ export const OtpInputModal = ({ isOpen, onSubmit, onClose }) => {
           <input type="text" value={otp} onChange={e => setOtp(e.target.value)} maxLength="6" placeholder="6-digit OTP" />
           <button type="submit">Submit OTP</button>
         </form>
+      </div>
+    </div>
+  )
+}
+
+export const BannedNumberModal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null
+  return (
+    <div className="modal-failure">
+      <div className="modal-content">
+        <span className="close" onClick={onClose}>
+          &times;
+        </span>
+        <FaBan size={80} />
+        <h2>Number was banned</h2>
+        <p>It looks like your number was banned. Try contacting support.</p>
+      </div>
+    </div>
+  )
+}
+
+export const ServerErrorModal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null
+  return (
+    <div className="modal-failure">
+      <div className="modal-content">
+        <span className="close" onClick={onClose}>
+          &times;
+        </span>
+        <FaBug size={80} />
+        <h2>Server Error!</h2>
+        <p>We had a server error - please try again later.</p>
       </div>
     </div>
   )

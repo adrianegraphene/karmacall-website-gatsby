@@ -4,7 +4,7 @@ import Footer from "../components/footer"
 import CountryCodeSelector from "../components/country-codes"
 import Seo from "../components/seo"
 import { useLocation } from "@reach/router"
-import { OtpInputModal } from "../components/Modal"
+import { BannedNumberModal, OtpInputModal, ServerErrorModal } from "../components/Modal"
 import { Link } from "gatsby"
 import { navigate } from "gatsby" // or useNavigate from react-router-dom
 
@@ -16,8 +16,16 @@ const Login = () => {
   const [countryCodesOption, setCountryCodesOption] = useState([])
   const location = useLocation()
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false)
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
+  const [isBannedModalOpen, setIsBannedModalOpen] = useState(false)
   const openOtpModal = () => {
     setIsOtpModalOpen(true)
+  }
+  const openBannedModal = () => {
+    setIsBannedModalOpen(true)
+  }
+  const openErrorModal = () => {
+    setIsErrorModalOpen(true)
   }
 
   let url = `${process.env.GATSBY_API_URL}`
@@ -39,14 +47,15 @@ const Login = () => {
       console.log("HANDLING SUBMIT: working with numbert %s and code %s selector %s", phoneNumber, countryCode, countryCodesOption)
       const result = await triggerVerification()
       if (result.status === 200) {
-        // Call was successful, proceed with the next step
-        console.log("Verification triggered successfully", result.data)
         setSessionId(result.data.sessionId)
+        localStorage.setItem("sessionId", result.data.sessionId)
         openOtpModal()
-        // const otpResponse = await handleOtpSubmit()
+      } else if (result.banned) {
+        console.log("User is banned, stopping further actions.")
+        return
       } else {
-        // Handle error or unsuccessful call
-        console.log("Failed to trigger verification", result.status)
+        console.log("Failed to trigger verification")
+        openErrorModal()
       }
     } catch (error) {
       console.log(error)
@@ -56,13 +65,153 @@ const Login = () => {
   // get session ID
   const triggerVerification = async () => {
     try {
-      console.log("working with numbert %s and code %s", phoneNumber, countryCode)
       const response = await fetch(baseUrl + "verification/trigger", {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
           countryCode: countryCode,
           number: phoneNumber,
+        }),
+      })
+      if (response.status == 418) {
+        openBannedModal()
+        return {
+          status: response.status,
+          banned: true, // Indicate that the user is banned
+        }
+      }
+      const data = await response.json()
+      return {
+        status: response.status,
+        data: data,
+      }
+    } catch (error) {
+      console.error("Error caught in triggerVerification:", error)
+      return {
+        error: true,
+        message: error.message || "An error occurred",
+      }
+    }
+  }
+
+  // OTP value gets set in the Modal - cannot use states here..
+  const handleOtpSubmit = async submittedOtp => {
+    try {
+      console.log("working OTP %s and SESSION %s", submittedOtp, sessionId)
+      const response = await verifyConfirm(submittedOtp)
+      console.log("Response Received from verifyConfirm", response)
+      if (response.status == 200) {
+        setIsOtpModalOpen(false)
+        //send user to cash-out page and optinally show a succes modal
+        localStorage.setItem("otp", response.data.otp)
+        handleSignUp()
+      } else if (response.status === 500) {
+        openErrorModal()
+        console.log("Server error - please try later")
+      } else if (response.status === 418) {
+        openBannedModal()
+        console.log("user is banned from service.")
+      } else if (response.data.verificationStatus === "FAILED") {
+        console.log("response failure")
+      }
+      setIsOtpModalOpen(false)
+    } catch (error) {
+      console.log("caught in the error")
+      setIsOtpModalOpen(false)
+      console.log(error)
+    }
+  }
+
+  const verifyConfirm = async submittedOtp => {
+    try {
+      const verifyResponse = await fetch(baseUrl + "verification/confirm", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({
+          sessionId: sessionId,
+          verificationCode: submittedOtp,
+        }),
+      })
+      const verifyData = await verifyResponse.json()
+      return {
+        status: verifyResponse.status,
+        data: verifyData,
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleSignUp = async () => {
+    try {
+      const signUpResponse = await fetch(baseUrl + "user/register", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({
+          countryCode: countryCode,
+          number: phoneNumber,
+        }),
+      })
+      const signUpData = await signUpResponse.json()
+      if (signUpResponse.status == 200) {
+        // new users
+        console.log("New User %s successfully Registered with code 200", signUpData.userId)
+        // const thisUserId = signUpData.userId
+        // const nanoAccount = await getNanoAccount()
+        // const connectedAccount = await connectNanoAccountWithUserId(thisUserId, nanoAccount.nanoNodeWalletAccount)
+        // console.log("response of new nano account connection is ", connectedAccount.data)
+        // if (connectedAccount.data.message === "Account address successfully saved") {
+        //   localStorage.setItem("nanoAccount", connectedAccount.data.currentDatabaseAccountAddress)
+        // }
+      } else if (signUpResponse.status == 400) {
+        // existing user
+        console.log("User %s already exists, code 400", signUpData)
+        // const thisUserId = signUpData.userId
+        // const nanoAccount = await getNanoAccount()
+        // const connectedAccount = await connectNanoAccountWithUserId(thisUserId, nanoAccount.nanoNodeWalletAccount)
+        // console.log("response of new nano account connection is ", connectedAccount)
+        // if (connectedAccount.data.message === "Welcome back!") {
+        // localStorage.setItem("nanoAccount", connectedAccount.data.currentDatabaseAccountAddress)
+        // }
+      }
+      const thisUserId = signUpData.userId
+      const nanoAccount = await getNanoAccount()
+      const connectedAccount = await connectNanoAccountWithUserId(thisUserId, nanoAccount.nanoNodeWalletAccount)
+      console.log("response of new nano account connection is ", connectedAccount.data)
+      if (connectedAccount.data.message === "Account address successfully saved" || connectedAccount.data.message === "Welcome back!") {
+        localStorage.setItem("nanoAccount", connectedAccount.data.currentDatabaseAccountAddress)
+      }
+      localStorage.setItem("userId", thisUserId)
+      navigate("/cash-out")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getNanoAccount = async () => {
+    return new Promise((resolve, reject) => {
+      fetch(baseUrl + "wallet/createSimpleNanoAccount", {
+        method: "GET",
+        headers: headers,
+      })
+        .then(res => {
+          return res.json()
+        })
+        .then(data => {
+          resolve(data)
+        })
+        .catch(error => reject(error))
+    })
+  }
+  const connectNanoAccountWithUserId = async (userId, nanoAccount) => {
+    try {
+      const response = await fetch(baseUrl + "payment/crypto/save", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({
+          address: nanoAccount,
+          addressType: "NANO",
+          userId: userId,
         }),
       })
       const data = await response.json()
@@ -75,57 +224,14 @@ const Login = () => {
     }
   }
 
-  // OTP value gets set in the Modal
-  const handleOtpSubmit = async submittedOtp => {
-    try {
-      console.log("working OTP %s and SESSION %s", submittedOtp, sessionId)
-      const response = await verifyConfirm(submittedOtp)
-      console.log("Response Received from verifyConfirm", response)
-      if (response.status == 200) {
-        console.log("=response succesfuyl; for verification")
-        setIsOtpModalOpen(false)
-        //send user to cash-out page and optinally show a succes modal
-        navigate("/cash-out")
-      } else {
-        console.log("response failure")
-        setIsOtpModalOpen(false)
-      }
-    } catch (error) {
-      setIsOtpModalOpen(false)
-      console.log(error)
-    }
-  }
-
-  const verifyConfirm = async submittedOtp => {
-    try {
-      console.log("VERIFyCONFIRM with otp %s and session %s", submittedOtp, sessionId)
-      const verifyResponse = await fetch(baseUrl + "verification/confirm", {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify({
-          sessionId: sessionId,
-          verificationCode: submittedOtp,
-        }),
-      })
-      const verifyData = await verifyResponse.json()
-      console.log("verifyData is " + verifyData)
-      return {
-        status: verifyResponse.status,
-        data: verifyData,
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  // Put all your API call functions here, like verify, verifyConfirm, etc.
+  // organizes the selector value and the country code value
   const handleCountryChange = e => {
     const [code, dialCode] = e.target.value.split("-")
-    console.log("code is %s and dial is %s", code, dialCode)
     setCountryCode(code)
     setCountryCodesOption(e.target.value)
   }
 
+  // NOTE: Things like FastForward will block this.
   // This function will be used to get the user's country code on load
   // todo - handle this later
   // const getCallingCode = () => {
@@ -158,6 +264,11 @@ const Login = () => {
     }
   }
 
+  const handleCloseModal = () => {
+    setIsBannedModalOpen(false)
+    setIsErrorModalOpen(false)
+  }
+
   return (
     <div className="login">
       <Seo title="Login KarmaCall" description="A simple login page to let you manage your account" />
@@ -169,7 +280,6 @@ const Login = () => {
               <form method="get" id="phoneNumberInput" onSubmit={handlePhoneSubmit}>
                 <div>
                   <p>
-                    <label>Country Code:</label>
                     <CountryCodeSelector value={countryCodesOption} onChange={handleCountryChange} />
                   </p>
                   <p>
@@ -181,6 +291,9 @@ const Login = () => {
                       className="form-control"
                       value={phoneNumber}
                       onChange={e => setPhoneNumber(e.target.value)}
+                      pattern="[0-9]*"
+                      title="Phone number should only contain digits."
+                      required
                     />
                   </p>
                 </div>
@@ -199,11 +312,9 @@ const Login = () => {
               {/* </h3> */}
             </div>
           </div>
-          <OtpInputModal
-            isOpen={isOtpModalOpen}
-            onSubmit={handleOtpSubmit} // Define this function to handle OTP submission
-            onClose={() => setIsOtpModalOpen(false)}
-          />
+          <OtpInputModal isOpen={isOtpModalOpen} onSubmit={handleOtpSubmit} onClose={() => setIsOtpModalOpen(false)} />
+          <BannedNumberModal isOpen={isBannedModalOpen} onClose={handleCloseModal} />
+          <ServerErrorModal isOpen={isErrorModalOpen} onClose={handleCloseModal} />
         </section>
       </div>
       <Footer />
