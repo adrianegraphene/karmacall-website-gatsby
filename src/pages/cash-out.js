@@ -9,6 +9,11 @@ const CashOut = () => {
   const [dynamicMessage, setDynamicMessage] = useState("Your USD Balance is $0.00")
   const [userId, setUserId] = useState("")
   const [nanoAccount, setNanoAccount] = useState("")
+  const [withdrawAmount, setWithdrawAmount] = useState("")
+  const [destinationAccount, setDestinationAccount] = useState("")
+  const sessionId = localStorage.getItem("sessionId")
+  const phoneNumber = localStorage.getItem("phoneNumber")
+  const countryCode = localStorage.getItem("countryCode")
   let url = `${process.env.GATSBY_API_URL}`
   let baseUrl = `${process.env.GATSBY_API_URL_BASE}`
   let headers = {
@@ -50,15 +55,13 @@ const CashOut = () => {
     }
   }
 
-  const handleNanoWithdraw = async submittedOtp => {
-    var amountToSend = prompt("How much Nano would you like to withdraw?", "")
+  const handleNanoWithdraw = async event => {
+    event.preventDefault()
     try {
-      await getUsdValueOfBalance(nanoAccount)
-      const response = await sendNano(amountToSend, accountToSendTo)
+      const response = await sendNano(withdrawAmount, destinationAccount)
       console.log("sendNano response successful with response ", response)
-      if (!isBlank(response["transactionId"])) {
-        // This call is lazy and wasteful - Should just subtract values if you want to update, rather than making another API call
-        getUsdValueOfBalance(nanoAccount)
+      if (!isBlank(response.transactionId)) {
+        //todo add modal here.
         alert("Nano successfully sent!")
       }
     } catch (err) {
@@ -66,22 +69,37 @@ const CashOut = () => {
     }
   }
 
+  // next updates
+  const handleGiftCardWithdraw = async event => {
+    event.preventDefault()
+    alert("Coming soon!")
+    // try {
+    //   const response = await sendNano(withdrawAmount, destinationAccount)
+    //   console.log("sendNano response successful with response ", response)
+
+    //   if (!isBlank(response.transactionId)) {
+    //     alert("Nano successfully sent!")
+    //   }
+    // } catch (err) {
+    //   console.log(err)
+    // }
+  }
+
   const sendNano = async (amountToSend, accountToSendTo) => {
     var myNanoBalance
     myNanoBalance = localStorage.getItem("nanoBalance")
     return new Promise((resolve, reject) => {
       if (amountToSend > myNanoBalance) {
-        insufficientBalance = true
+        console.log("This is more Nano than you have in your account")
         // todo setup a Modal for this.
-        alert("This is more Nano than you have in your account")
-        reject(insufficientBalance)
+        // alert("This is more Nano than you have in your account")
       }
-      fetch("${url}nano/userSend", {
+      fetch(`${url}nano/userSend`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
           amount: amountToSend,
-          countryCode: IPcountryCode,
+          countryCode: countryCode,
           destinationAddress: accountToSendTo,
           sessionId: sessionId,
           sourceAddress: nanoAccount,
@@ -99,6 +117,11 @@ const CashOut = () => {
     })
   }
 
+  // todo move this into a helper method later.
+  function isBlank(str) {
+    return !str || /^\s*$/.test(str)
+  }
+
   return (
     <div className="cash-out">
       <Seo title="Wallet Page" description="Manage your KarmaCall account here." />
@@ -109,10 +132,27 @@ const CashOut = () => {
           <p>Copy in the nano account where you would like to send your nano to.</p>
           <div className="html-dynamic" dangerouslySetInnerHTML={{ __html: dynamicMessage }}></div>
           <form method="get" id="nanoAccountWithDraw" onSubmit={handleNanoWithdraw}>
-            <p>Withdraw to external nano account (enter amount after pressing submit) </p>
+            <p>Withdraw to external nano account</p>
             <div>
               <p>
-                <input name="externalNanoAccount" id="externalNanoAccount" class="form-control width100" placeholder="Enter nano Account" />
+                <input
+                  type="text"
+                  name="withdrawAmount"
+                  className="form-control width100"
+                  placeholder="Enter amount of Nano"
+                  value={withdrawAmount}
+                  onChange={e => setWithdrawAmount(e.target.value)}
+                />
+              </p>
+              <p>
+                <input
+                  type="text"
+                  name="externalNanoAccount"
+                  className="form-control width100"
+                  placeholder="Enter destination Nano account"
+                  value={destinationAccount}
+                  onChange={e => setDestinationAccount(e.target.value)}
+                />
               </p>
             </div>
             <button className="learn-more-btn ">Submit</button>

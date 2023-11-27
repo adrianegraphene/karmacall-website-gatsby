@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import "../components/contact.css"
 import "../components/blocked-email.css"
 import { GatsbyImage } from "gatsby-plugin-image"
-import { FaGift, FaFileAlt, FaSearch, FaSadCry, FaBan, FaBug } from "react-icons/fa"
+import { FaGift, FaFileAlt, FaSearch, FaSadCry, FaBan, FaBug, FaMoneyBill, FaGifts } from "react-icons/fa"
 import { useCombinedQuery } from "./useCombinedQuery"
 
 export const KarmacallAppStoreModal = ({ onClose }) => {
@@ -78,6 +78,38 @@ export const ServerErrorModal = ({ isOpen, onClose }) => {
         <FaBug size={80} />
         <h2>Server Error!</h2>
         <p>We had a server error - please try again later.</p>
+      </div>
+    </div>
+  )
+}
+
+export const NanoSendModal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null
+  return (
+    <div className="modal">
+      <div className="modal-content">
+        <span className="close" onClick={onClose}>
+          &times;
+        </span>
+        <FaMoneyBill size={80} />
+        <h2>Nano Was successfully sent!</h2>
+        <p>Check your nano account</p>
+      </div>
+    </div>
+  )
+}
+
+export const GiftCardModal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null
+  return (
+    <div className="modal">
+      <div className="modal-content">
+        <span className="close" onClick={onClose}>
+          &times;
+        </span>
+        <FaGifts size={80} />
+        <h2>Gift Card Was successfully requested!</h2>
+        <p>Check your email account</p>
       </div>
     </div>
   )
