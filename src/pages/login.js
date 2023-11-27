@@ -44,17 +44,14 @@ const Login = () => {
   const handlePhoneSubmit = async event => {
     event.preventDefault()
     try {
-      console.log("HANDLING SUBMIT: working with numbert %s and code %s selector %s", phoneNumber, countryCode, countryCodesOption)
       const result = await triggerVerification()
       if (result.status === 200) {
         setSessionId(result.data.sessionId)
         localStorage.setItem("sessionId", result.data.sessionId)
         openOtpModal()
       } else if (result.banned) {
-        console.log("User is banned, stopping further actions.")
         return
       } else {
-        console.log("Failed to trigger verification")
         openErrorModal()
       }
     } catch (error) {
@@ -102,21 +99,18 @@ const Login = () => {
       console.log("Response Received from verifyConfirm", response)
       if (response.status == 200) {
         setIsOtpModalOpen(false)
-        //send user to cash-out page and optinally show a succes modal
         localStorage.setItem("otp", response.data.otp)
         handleSignUp()
       } else if (response.status === 500) {
         openErrorModal()
-        console.log("Server error - please try later")
       } else if (response.status === 418) {
         openBannedModal()
-        console.log("user is banned from service.")
       } else if (response.data.verificationStatus === "FAILED") {
+        // todo add a "service failed modal"
         console.log("response failure")
       }
       setIsOtpModalOpen(false)
     } catch (error) {
-      console.log("caught in the error")
       setIsOtpModalOpen(false)
       console.log(error)
     }
@@ -142,7 +136,7 @@ const Login = () => {
     }
   }
 
-  // TODO - set up the "getUserId" for existing users
+  // complex user sign up flow since it handles both new users and existing users due to outdated backend.
   const handleSignUp = async () => {
     try {
       const signUpResponse = await fetch(baseUrl + "user/register", {
@@ -153,30 +147,38 @@ const Login = () => {
           number: phoneNumber,
         }),
       })
-      const signUpData = await signUpResponse.json()
+      let signUpData = await signUpResponse.json()
+      let successfulCall = false
+      let thisUserId
       if (signUpResponse.status == 200) {
         // new users
         console.log("New User %s successfully Registered with code 200", signUpData.userId)
-        // const thisUserId = signUpData.userId
-        // const nanoAccount = await getNanoAccount()
-        // const connectedAccount = await connectNanoAccountWithUserId(thisUserId, nanoAccount.nanoNodeWalletAccount)
-        // console.log("response of new nano account connection is ", connectedAccount.data)
-        // if (connectedAccount.data.message === "Account address successfully saved") {
-        //   localStorage.setItem("nanoAccount", connectedAccount.data.currentDatabaseAccountAddress)
-        // }
+        thisUserId = signUpData.userId
+        successfulCall = true
       } else if (signUpResponse.status == 400) {
+        // existing users
         console.log("User already exists")
-        const signUpData = await getUserId()
+        const userResponse = await getUserId()
+        if (userResponse.status == 200) {
+          thisUserId = userResponse.data.userId
+          successfulCall = true
+        }
       }
-      const thisUserId = signUpData.userId
-      const nanoAccount = await getNanoAccount()
-      const connectedAccount = await connectNanoAccountWithUserId(thisUserId, nanoAccount.nanoNodeWalletAccount)
-      console.log("response of new nano account connection is ", connectedAccount.data)
-      if (connectedAccount.data.message === "Account address successfully saved" || connectedAccount.data.message === "Welcome back!") {
-        localStorage.setItem("nanoAccount", connectedAccount.data.currentDatabaseAccountAddress)
+      console.log("%s <- user Id", thisUserId)
+      if (successfulCall) {
+        const nanoAccount = await getNanoAccount()
+        console.log("userID IS %s and userAccount is %s", thisUserId, nanoAccount.data.nanoNodeWalletAccount)
+        const connectedAccount = await connectNanoAccountWithUserId(thisUserId, nanoAccount.data.nanoNodeWalletAccount)
+        if (["Account address successfully saved", "Welcome back!"].includes(connectedAccount.data.message)) {
+          console.log("Account address successfully saved")
+          localStorage.setItem("nanoAccount", connectedAccount.data.currentDatabaseAccountAddress)
+        }
+        localStorage.setItem("userId", thisUserId)
+        navigate("/cash-out")
+      } else {
+        // put an error thing here
+        console.log("Failure at getting the user signed up")
       }
-      localStorage.setItem("userId", thisUserId)
-      navigate("/cash-out")
     } catch (error) {
       console.log(error)
     }
@@ -184,8 +186,8 @@ const Login = () => {
 
   // for existing users only
   const getUserId = async () => {
-    return new Promise((resolve, reject) => {
-      fetch(baseUrl + "user/getUser", {
+    try {
+      const userIdResponse = await fetch(baseUrl + "user/getUser", {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
@@ -193,31 +195,32 @@ const Login = () => {
           number: phoneNumber,
         }),
       })
-        .then(res => {
-          return res.json()
-        })
-        .then(data => {
-          resolve(data)
-        })
-        .catch(error => reject(error))
-    })
+      const userIdData = await userIdResponse.json()
+      return {
+        status: userIdResponse.status,
+        data: userIdData,
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const getNanoAccount = async () => {
-    return new Promise((resolve, reject) => {
-      fetch(baseUrl + "wallet/createSimpleNanoAccount", {
+    try {
+      const nanoWalletResponse = await fetch(baseUrl + "wallet/createSimpleNanoAccount", {
         method: "GET",
         headers: headers,
       })
-        .then(res => {
-          return res.json()
-        })
-        .then(data => {
-          resolve(data)
-        })
-        .catch(error => reject(error))
-    })
+      let nanoWalletData = await nanoWalletResponse.json()
+      return {
+        status: nanoWalletResponse.status,
+        data: nanoWalletData,
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
+
   const connectNanoAccountWithUserId = async (userId, nanoAccount) => {
     try {
       const response = await fetch(baseUrl + "payment/crypto/save", {
@@ -266,18 +269,18 @@ const Login = () => {
   // }
 
   // This function will be used to get the user's country code on load
-  const setCallingCode = () => {
-    let IPcountryCode = countryCode
-    let codeDropdown = document.getElementById("countryCodes")
-    localStorage.setItem("IPcountryCode", IPcountryCode)
-    for (let i, j = 0; (i = codeDropdown.options[j]); j++) {
-      if (i.dataset.countryCode == IPcountryCode) {
-        codeDropdown.selectedIndex = j
-        i.selected = true
-        return IPcountryCode
-      }
-    }
-  }
+  // const setCallingCode = () => {
+  //   let IPcountryCode = countryCode
+  //   let codeDropdown = document.getElementById("countryCodes")
+  //   localStorage.setItem("IPcountryCode", IPcountryCode)
+  //   for (let i, j = 0; (i = codeDropdown.options[j]); j++) {
+  //     if (i.dataset.countryCode == IPcountryCode) {
+  //       codeDropdown.selectedIndex = j
+  //       i.selected = true
+  //       return IPcountryCode
+  //     }
+  //   }
+  // }
 
   const handleCloseModal = () => {
     setIsBannedModalOpen(false)
