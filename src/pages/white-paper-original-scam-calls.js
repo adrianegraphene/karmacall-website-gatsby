@@ -17,26 +17,18 @@ const WhitePaperOriginalScamCalls = () => {
       <Header />
       <div className="content-container">
         <h2 className={"centered"}>Why Do Spam Calls Still Exist?</h2>
-        <p className={"centered"}>
-          ...and how can I stop scams, but let good callers reach me?
-        </p>
+        <p className={"centered"}>...and how can I stop scams, but let good callers reach me?</p>
         <p>
-          That's the thought that started me on a journey of exploring an
-          emerging market that blends communications & currency to create trust
-          between strangers with shared interests. Here's the paper I wrote to
-          record my thoughts - it later became{" "}
-          <a href="https://patents.google.com/patent/US11310368B2">
-            my 1st patent
-          </a>
-          , <a href="https://www.karmacall.com/">app</a>, and is the basis for
-          how FynCom came to be. Thanks for reading! <br />
+          That's the thought that started me on a journey of exploring an emerging market that blends communications & currency to create trust between
+          strangers with shared interests. Here's the paper I wrote to record my thoughts - it later became{" "}
+          <a href="https://patents.google.com/patent/US11310368B2">my 1st patent</a>, <Link to="/">this KarmaCall app</Link>, and is the basis for how{" "}
+          <a href="https://www.fyncom.com">FynCom</a> came to be. Thanks for reading! <br />
           <i>- Adrian</i>
         </p>
         <PdfContent file={whitePaper} />
         <p>
-          Thanks for reading our White Paper on stopping spam across the world,
-          starting with scam calls!{" "}
-          <Link to={"/"}>Try out the apps today </Link>to get started!
+          Thanks for reading our White Paper on stopping spam across the world, starting with scam calls! <Link to={"/"}>Try out the apps today </Link>to get
+          started!
         </p>
       </div>
       <Footer />

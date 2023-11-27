@@ -76,10 +76,9 @@ const BlockSpamEarnCash = () => {
       })
       if (response.ok) {
         const data = await response.json()
-        // const accountblockCount = data.accountBlockCount
         if (data.accountBlockCount > 0) {
           setNanoBlockCount(data.accountBlockCount)
-          const newMessage = `${data.accountBlockCount} BLA instant payments have been made for blocked calls so far. What are you waiting for? Download the app and get paid! <a href="https://www.nanolooker.com/account/nano_3rcpayu3g39njpq3mkizuepfr5rh1nwuz4xypwsmubkoiww88wubff8d719t">See these payments happening in real-time!</a>`
+          const newMessage = `${data.accountBlockCount} instant payments have been made for blocked calls so far. What are you waiting for? Download the app and get paid! <a href="https://www.nanolooker.com/account/nano_3rcpayu3g39njpq3mkizuepfr5rh1nwuz4xypwsmubkoiww88wubff8d719t">See these payments happening in real-time!</a>`
           setDynamicMessage(newMessage)
         }
       }
@@ -136,7 +135,10 @@ const BlockSpamEarnCash = () => {
                   </div>
                   <div className="text-container">
                     <h4>Get Paid!</h4>
-                    <p>For every call we reject, you get paid Nano. Instantly. Cash-out at any time.</p>
+                    <p>
+                      For every call you let us block on your behalf, you get paid <a href="https://nano.org/en/foundation">nano</a>. Instantly. Cash-out at any
+                      time to nano, cash, or gift cards!
+                    </p>
                   </div>
                 </div>
                 <div className="value-row">
@@ -145,7 +147,10 @@ const BlockSpamEarnCash = () => {
                   </div>
                   <div className="text-container">
                     <h4>End AI Scams</h4>
-                    <p>Scammers depend on you answering your phone. As long as your phone number works, you will get scam calls. We can stop that.</p>
+                    <p>
+                      Scammers depend on the statistics of people answering calls. As long as your phone number works, you will get scam calls. We can stop
+                      that.
+                    </p>
                   </div>
                 </div>
                 <div className="value-row">

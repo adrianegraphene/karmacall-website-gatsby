@@ -19,65 +19,27 @@ const About = () => {
       <Header />
       <section className="mission-section">
         <h1>About Us</h1>
-        <sub>
-          At FynCom, our mission is to revolutionize the way organizations communicate and motivate their customers and partners. We believe that interactive
-          rewards can drive engagement and improve performance in any type of organization. We are committed to delivering innovative solutions that help our
-          clients succeed.
-        </sub>
-      </section>
-      <section className="story-section">
-        <div className={"story-image"}>
-          <GatsbyImage image={teamMeeting} alt="Our Story" />
-        </div>
-        <div className="story-text">
-          <h3>Our Story</h3>
-          <p>
-            FynCom's Rewards technology was invented to disrupt scam economics over phone calls with refundable cash deposits (
-            <Link to="/white-paper-original-scam-calls">Read more here</Link>). As we spoke to businesses about our solution, we learned that getting responses
-            to business communications is tough!
-          </p>
-          <p>
-            So we modified our tech to create response generation technology that rewards prospects & customers when they respond to emails, calls, texts,
-            surveys, and more. We saw incredible results from offering these immediate incentivized rewards, with tests showing a 200% increase in cold-call
-            pick ups and 500% increase in email response rates.
-          </p>
-          <p>
-            That was enough to let us know there was value here. FynCom works over the top of any existing service and aims to be the Rewards layer of the
-            internet, stopping spam & scams outright while allowing trust to grow again. We are here to be the best way of transferring financial value in
-            response to communications, so <p2 className="p2-blue">Fyn</p2>
-            <p2 className="text-wrapper-3-red">Com</p2> is short for "<p2 className="p2-blue">Fin</p2>ancial <p2 className="text-wrapper-3-red">Com</p2>
-            munications".
-          </p>
-        </div>
-      </section>
-      <section className="values-header">
-        <h2>Values</h2>
-      </section>
-      <section className="values-section">
-        <div className="value">
-          <GatsbyImage image={innovation} alt="Innovation" />
-          <h4>Innovation</h4>
-          <p>We are always looking for new ways to push the boundaries and deliver value to our clients.</p>
-        </div>
-        <div className="value">
-          <GatsbyImage image={collaboration} alt="Collaboration" />
-          <h4>Collaboration</h4>
-          <p>We believe that great things can be achieved when we work together as a team.</p>
-        </div>
-        <div className="value">
-          <GatsbyImage image={transparency} alt="Transparency" />
-          <h4>Transparency</h4>
-          <p>We are committed to open, honest communication and straightforward transparency.</p>
-        </div>
-        <div className="value">
-          <GatsbyImage image={customerFocus} alt="Focus" />
-          <h4>Customer focus</h4>
-          <p>Our customers are at the heart of everything we do. We are dedicated to delivering the best possible experience for them. Focus is key.</p>
-        </div>
-        <div className="value">
-          <GatsbyImage image={continuousImprovement} alt="Continuous Improvement" />
-          <h4>Continuous improvement</h4>
-          <p>We believe that there is always room for growth and improvement. We are committed to continuous learning and development.</p>
+        <sub>KarmaCall's mission is to disrupt the scam economy and get people paid to block spam.</sub>
+        <div className="AppText">
+          <div className="story-text">
+            <h2>Our Story</h2>
+            <p>
+              KarmaCall is the first application built from FynCom's Rewards technology (<Link to="/white-paper-original-scam-calls">Read more here</Link>).
+              KarmaCall serves as a consumer empowerment tool and is using the phone call to debut its unique algorithm, driven by deposits and
+              responses/engagement.
+            </p>
+            <h2>Our Logic</h2>
+            <p>
+              Monetary incentives is the biggest driver of spam calls, so we focus SPECIFICALLY on bringing money into the phone call. KarmaCall logic works
+              simlarly to a bank's microdeposits transactions which help banks verify you own a bank account. The BIGGEST difference is we do not require a bank
+              account. The biggest difference from KarmaCall and our friends in the industry, is...
+              <ol>
+                <li>We operate PRIMARILY on a whiltelist based on your contacts list. </li>
+                <li>We allow non-contacts to deposit money into your KarmaCall account and get it back if a call lasts more than 25 seconds.</li>
+                <li>We let paid KarmaCallers set their own minimum deposit and rewards limits. </li>
+              </ol>
+            </p>
+          </div>
         </div>
       </section>
       <Footer />

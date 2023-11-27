@@ -11,12 +11,12 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import { useCombinedQuery } from "../components/useCombinedQuery"
 
 const Contact = () => {
+  const { fyncomFiltersWords, fyncomFiltersWordsDark } = useCombinedQuery()
   const [isSuccessModalOpen, setSuccessModalOpen] = useState(false)
   const [isFailureModalOpen, setFailureModalOpen] = useState(false)
   const [formData, setFormData] = useState({ name: "", email: "", message: "" })
   const [modalMessage, setModalMessage] = useState("")
   const [filterLogo, setFilterLogo] = useState(fyncomFiltersWords)
-  const { fyncomFiltersWords, fyncomFiltersWordsDark } = useCombinedQuery()
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -68,7 +68,7 @@ const Contact = () => {
 
   return (
     <div>
-      <Seo title="Contact Us" description="Send a contact request to Team FynCom and we'll get back to you shortly" />
+      <Seo title="Contact Us" description="Send a contact request to the KarmaCall team and we'll get back to you shortly" />
       <Header />
       <main className="contact-container">
         <h1>Contact Us</h1>
@@ -92,26 +92,27 @@ const Contact = () => {
           </button>
         </form>
 
-        <h2>What is FynCom?</h2>
-        <p>FynCom helps you stop spam and scams, while making money for yourself or your organization.</p>
+        <h2>What is KarmaCall?</h2>
         <p>
-          We build "money layers" on top of communications platforms / protocols & enforce escrow between unknown parties while rewarding people who block spam.
+          KaramCall is a mobile app built to stop spam calls, scam calls, and unwanted calls in general. KarmaCall focuses purely on the monetary incentives
+          that motivate spammers. By paying KarmaCall users to block unknown calls, KarmaCall makes your voice valuable; So valuable, that eventually...
+          <ol>
+            <li>
+              Good callers (people not on your contacts list, like old friends & unknown but desired contacts) will risk losing money to you for the chance to
+              start a conversation with you.
+            </li>
+            <li>Commercial callers will instantly pay you on a minute by minute basis to listen to them or talk.</li>
+            <li>Scammers will lose more money than they can defraud.</li>
+          </ol>
+          <br />
+          The paid version of KarmaCall allows you to set your own "deposit rates" and "reward rates".
         </p>
-        <p>We're a tech company that help people trust emails, calls, direct messages and any sort of inbound communication.</p>
-        <p>We do this by integrating refundable transactions into the tools we use everyday.</p>
+        <p>
+          KarmaCall is made possible by FynCom's technology and is wholly owned by <a href="https://www.fyncom.com">FynCom</a>.
+        </p>
 
         <i>
-          <p>Sometimes our tools like consumer products as shown towards the page bottom...</p>
-        </i>
-
-        <p>
-          But, most of our focus is on helping businesses create trust in their communications. Whether that's in helping prevent business imposters or
-          government imposters from reducing your brand affinity or by giving revenue operations teams the tools to enhance sales & marketing efforts by
-          rewarding people to respond / engage with outbound messages
-        </p>
-
-        <i>
-          <p className="centered">Examples of our consumer tools</p>
+          <p className="centered">If you like KarmaCall, you may like our Email Scam Cash back tools too!</p>
         </i>
         <h1 className="centered">Spam Sucks!</h1>
         <h2 className="centered">Get instantly paid to block bad emails & calls with...</h2>
@@ -124,6 +125,12 @@ const Contact = () => {
             of our apps today!
           </p>
           <ul className="info-list">
+            <li>Emails</li>
+            <ul className="emails-list">
+              <li>
+                Gmail. <Link to="/fyncom-filters-email-edition">Free for 1st 100 blocked emails per month.</Link>
+              </li>
+            </ul>
             <li>Calls</li>
             <ul className="calls-list">
               <li>
@@ -137,12 +144,6 @@ const Contact = () => {
                 <a href="https://apps.apple.com/us/app/karmacall/id1574524278" className="store-badges">
                   <img className="app-img" src={appStoreBadge} alt="Download KarmaCall on the App Store" />
                 </a>
-              </li>
-            </ul>
-            <li>Emails</li>
-            <ul className="emails-list">
-              <li>
-                Gmail. <Link to="/fyncom-filters-email-edition">Free for 1st 100 blocked emails per month.</Link>
               </li>
             </ul>
           </ul>

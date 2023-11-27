@@ -24,8 +24,14 @@
   justify-content: space-between;
   margin: 40px 40px;
 }
-.values-header > h2 {
+.values-header > h2, .mission-section > h2 {
   text-align: center;
+}
+.story-text > p {
+  margin-top: 1.5rem;
+}
+.story-text {
+  margin-top: 1rem;
 }
 .value {
   width: 30%;
@@ -51,12 +57,14 @@
   justify-content: space-between;
   align-items: center;
 }
-.story-text > h3 {
+.story-text > h3,
+.story-text > h2 {
   text-align: center;
   position: relative; /* Makes sure the pseudo-element positions itself relative to the h3 */
 }
 
-.story-section .story-text h3::after {
+.story-section .story-text h3::after,
+.mission-section h2::after {
   content: ""; /* This is necessary for the pseudo-element to show */
   position: absolute; /* Allows precise positioning */
   left: 100px;
