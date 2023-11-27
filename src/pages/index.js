@@ -31,6 +31,15 @@ const BlockSpamEarnCash = () => {
   const toggleModal = () => {
     setModalOpen(!isModalOpen)
   }
+  const [dynamicMessage, setDynamicMessage] = useState(
+    '108667 instant payments have been made for blocked calls so far. What are you waiting for? Download the app and get paid! <a href="https://www.nanolooker.com/account/nano_3rcpayu3g39njpq3mkizuepfr5rh1nwuz4xypwsmubkoiww88wubff8d719t">See these payments happening in real-time!</a>'
+  )
+  const [nanoBlockCount, setNanoBlockCount] = useState("")
+  let baseUrl = `${process.env.GATSBY_API_URL_BASE}`
+  let headers = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  }
 
   // Use state to keep track of the images for the current theme
   const [karmacallLogo, setKarmacallLogo] = useState(karmacallImage)
@@ -39,6 +48,7 @@ const BlockSpamEarnCash = () => {
   const [evonexusLogo, setEvonexusLogo] = useState(evonexus)
 
   useEffect(() => {
+    getBlockCount("nano_3rcpayu3g39njpq3mkizuepfr5rh1nwuz4xypwsmubkoiww88wubff8d719t")
     if (typeof window !== "undefined") {
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
       // const handleChange = () => setIsDarkMode(mediaQuery.matches);
@@ -54,6 +64,29 @@ const BlockSpamEarnCash = () => {
       return () => mediaQuery.removeListener(handleChange)
     }
   }, [karmacallImage, karmacallImageDark, disruptionBanking, disruptionBankingDark, oneMillionCups, oneMillionCupsDark, evonexusDark, evonexus])
+
+  const getBlockCount = async nanoAccount => {
+    try {
+      const response = await fetch(`${baseUrl}nano/accountBlockCount`, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({
+          destinationAddress: nanoAccount,
+        }),
+      })
+      if (response.ok) {
+        const data = await response.json()
+        // const accountblockCount = data.accountBlockCount
+        if (data.accountBlockCount > 0) {
+          setNanoBlockCount(data.accountBlockCount)
+          const newMessage = `${data.accountBlockCount} BLA instant payments have been made for blocked calls so far. What are you waiting for? Download the app and get paid! <a href="https://www.nanolooker.com/account/nano_3rcpayu3g39njpq3mkizuepfr5rh1nwuz4xypwsmubkoiww88wubff8d719t">See these payments happening in real-time!</a>`
+          setDynamicMessage(newMessage)
+        }
+      }
+    } catch (error) {
+      console.error("ERROR", error)
+    }
+  }
 
   return (
     <div>
@@ -136,8 +169,7 @@ const BlockSpamEarnCash = () => {
         </div>
         <div className="payments-container">
           <p className="payment-text">
-            108667 payments have been made for rejected calls so far. What are you waiting for? Download the app and get paid! See these payments happening in
-            real-time.
+            <div className="html-dynamic" dangerouslySetInnerHTML={{ __html: dynamicMessage }}></div>
           </p>
         </div>
 

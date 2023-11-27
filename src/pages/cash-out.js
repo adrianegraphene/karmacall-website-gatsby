@@ -83,8 +83,6 @@ const CashOut = () => {
         updateNanoBalanceInFiat(data.accountBalanceInFiat)
         updateFiatType(data.currencyType)
         setNanoRate(data.rate)
-        console.log("account balance upon inspeadinction is %s", data.accountBalanceInNano)
-        console.log("account balance upon inspeadinction is %s", nanoBalance)
       } else {
         throw new Error("Failed to fetch user details")
       }
@@ -99,7 +97,6 @@ const CashOut = () => {
     event.preventDefault()
     try {
       const response = await sendNano(withdrawAmount, destinationAccount)
-      console.log("sendNano response successful with response ", response)
       if (!isBlank(response.transactionId)) {
         openNanoSentModal()
       }
@@ -129,7 +126,6 @@ const CashOut = () => {
     // myNanoBalance = localStorage.getItem("nanoBalance")
     return new Promise((resolve, reject) => {
       if (amountToSend > myNanoBalance) {
-        console.log("amount to send %s is greater than my balancer %s", amountToSend, myNanoBalance)
         setIsNanoOverBalanceModalOpen(true)
         return
       }
@@ -146,7 +142,6 @@ const CashOut = () => {
         }),
       })
         .then(res => {
-          console.log(res)
           return res.json()
         })
         .then(data => {
